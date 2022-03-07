@@ -144,11 +144,11 @@ export default function AdminLayout({ children, ...props }) {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex-shrink-0 flex items-center px-4"> 
+                <div className="flex-shrink-0 flex items-center px-4 "> 
                    <Link href="/">
                     <img
                       className="h-16 w-auto"
-                      src={"/assets/comp-logo.jpg"}
+                      src={"/assets/comp-logo-alt.jpg"}
                       alt="Comp. Logo"
                     />
                    </Link>
@@ -221,7 +221,7 @@ export default function AdminLayout({ children, ...props }) {
                 <Link href="/"> 
                   <img
                   className="h-18 w-auto"
-                  src={"/assets/cap-logo.png"}
+                  src={"/assets/comp-logo.png"}
                   alt="Comp Logo"
                 />
                 </Link>

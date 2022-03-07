@@ -51,8 +51,8 @@ export default function LoginForm() {
            <div className="p-2 shadow-2xl bg-white rounded-2xl">
             <img
                 className="mx-auto h-28 w-auto"
-                src={"/assets/comp-logo.jpg"}
-                alt="Cappelli Logo"
+                src={"/assets/comp-logo.png"}
+                alt="Comp. Logo"
               />
            </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>

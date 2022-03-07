@@ -47,8 +47,8 @@ export default function NabarTop() {
                
                  <img
                     className="mx-auto h-16 w-auto hidden sm:block"
-                    src={"/assets/comp-logo.jpg"}
-                    alt="Cappelli Logo"
+                    src={"/assets/comp-logo.png"}
+                    alt="Comp. Logo"
                   />
              
                 </div>
