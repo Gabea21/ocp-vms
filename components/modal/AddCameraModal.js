@@ -16,7 +16,8 @@ export default function AddCameraModal({open, setOpen}) {
         recording:'off',
         deviceUsername:'',
         devicePassword:'',
-        deviceStreamPath:''
+        deviceStreamPath:'',
+        passthrough: true, 
         });
    
     const changeHandler = e => {
@@ -44,6 +45,7 @@ export default function AddCameraModal({open, setOpen}) {
                 deviceUsername: allValues.deviceUsername,
                 devicePassword: allValues.devicePassword,
                 deviceStreamPath: allValues.deviceStreamPath,
+                passthrough: allValues.passthrough
             })
         })
         .then(function (res) {

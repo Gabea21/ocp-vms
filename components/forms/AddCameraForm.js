@@ -141,7 +141,7 @@ export default function AddCameraForm(props) {
                                     </span>
                                     <input
                                     type="text"
-                                    value={allValues.devicePath}
+                                    value={allValues.deviceStreamPath}
                                     onChange={changeHandler}
                                     name="deviceStreamPath"
                                     id="stream-path"
@@ -228,7 +228,7 @@ export default function AddCameraForm(props) {
                                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-lg rounded-md"
                                 value={allValues.recording}
 
-                                defaultValue="none"
+                                // defaultValue="none"
                             >
                                 <option value="off">Recording Off</option>
                                 <option value="on">Continuous Recording</option>

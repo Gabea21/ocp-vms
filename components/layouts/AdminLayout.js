@@ -46,54 +46,52 @@ export default function AdminLayout({ children, ...props }) {
       }
 
     const [navigation, setNavigation] = useState([
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname === ('/app/dashboard' )? true : false },
-      { name: 'Camera Dashboard', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname ===('/app/cameras/') ? true : false },
-      { name: 'Access Lists', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname === ('/app/lists/') ? true : false}
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
+      { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras/main') ? true : false },
+      { name: 'Access Control', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false}
     ])
-    const [navAdmin, setNavAdmin] = useState([
-      { name: 'Users', href: '/app/users', icon: UsersIcon, current: router.pathname === ('/app/users' )? true : false },
-      { name: 'Device Hub', href: '/app/devices', icon:  MdDevicesOther, current: router.pathname.includes('/app/devices') ? true : false },
-      { name: 'Manage Walls', href: '/app/manage/wall', icon:  ViewGridAddIcon, current: router.pathname.includes('/app/manage/wall') ? true : false },
-      {name: 'Locations', href:'/app/location', icon: GrMapLocation , current: router.pathname === ('/app/location') ? true : false},
-      { name: 'Triggers', href: '/app/triggers', icon: CogIcon, current: router.pathname === ('/app/triggers') ? true : false}
-    ])
+   
     const mainNavigation = [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
-      { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras/') ? true : false },
+      { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras') ? true : false },
       { name: 'Access Control', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false} 
     ]
     const navigationItemsLists= [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname === '/app/dashboard' ? true : false },
-      { name: 'Lists Dashboard', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname === '/app/lists/main' ? true : false },
-     { name: 'Manage Lists', href: '/app/lists/manage', icon: ViewListIcon, current: router.pathname === '/app/lists/manage' ? true : false } ,
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
+      { name: 'Access Control', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/main') ? true : false },
+     { name: 'Manage Lists', href: '/app/lists/manage', icon: ViewListIcon, current: router.pathname.includes('/app/lists/manage') ? true : false } ,
     ]
 
     const navigationItemsCamera = [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname === '/app/dashboard' ? true : false },
-      { name: 'Camera Dashboard', href: '/app/cameras/main', icon:  VideoCameraIcon, current: router.pathname === '/app/cameras/main' ? true : false },
-      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname === '/app/cameras/grid/?axis=3' ? true : false },
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
+      { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current: router.pathname.includes( '/app/cameras/main' ) ? true : false },
+      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname.includes(  '/app/cameras/grid/?axis=3') ? true : false },
       // { name: '2x2 Grid', href: '/app/cameras/grid?axis=2', icon: ViewGridAddIcon, current: router.pathname === '/app/cameras/grid?axis=2' ? true : false },
       // { name: 'All Cameras', href:  '/app/cameras/manage', icon: ViewListIcon, current: router.pathname === '/app/cameras/manage' ? true :  false },
     ]
-  
+    const [navAdmin, setNavAdmin] = useState([
+      { name: 'Device Hub', href: '/app/devices', icon:  MdDevicesOther, current: router.pathname.includes('/app/devices') ? true : false },
+      { name: 'Camera Walls', href: '/app/manage/wall', icon:  ViewGridAddIcon, current: router.pathname.includes('/app/manage/wall') ? true : false },
+      { name: 'Users', href: '/app/users', icon: UsersIcon, current: router.pathname === ('/app/users' )? true : false },
+      { name: 'Triggers', href: '/app/triggers', icon: CogIcon, current: router.pathname === ('/app/triggers') ? true : false},
+      {name: 'Locations', href:'/app/location', icon: GrMapLocation , current: router.pathname === ('/app/location') ? true : false}
+    ])
     const userNavigation = [
       // { name: 'Your Profile', href: '/app/profile', },
       // { name: 'Settings', href: '#'  },
       { name: 'Sign out', href: '/login', onClick: (e)=> handleSignOut(e) },
     ]
-
     useEffect(() => {
       if(router.pathname.includes('/app/cameras')){
         setNavigation(navigationItemsCamera)
       }else if (router.pathname.includes('/app/lists')){
         setNavigation(navigationItemsLists)
-      }else if(router.pathname.includes('/app/dashboard')){
-        setNavigation(mainNavigation)
       }else{
-        //Clean This Up
+        setNavigation(mainNavigation)
       }
-    }, [router])
-       
+    }, [router.pathname])
+    // console.log(navigation)
+
     useEffect(() => {
       setSidebarOpen(false)
     }, [router.pathname])
@@ -144,11 +142,11 @@ export default function AdminLayout({ children, ...props }) {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex-shrink-0 flex items-center px-4 "> 
+                <div className="flex-shrink-0 flex items-center px-4"> 
                    <Link href="/">
                     <img
                       className="h-16 w-auto"
-                      src={"/assets/comp-logo-alt.jpg"}
+                      src={"/assets/comp-logo.png"}
                       alt="Comp. Logo"
                     />
                    </Link>

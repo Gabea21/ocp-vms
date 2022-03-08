@@ -16,7 +16,7 @@ export default function CamEventTable(props) {
     const [loadErrMessage, setLoadErrMessage] = useState('');
     const [showEventModal, setShowEventModal] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const aiEventsUrl = `/api/cameras/ai?id=${camera._id}` ;
+    const aiEventsUrl = `/api/cameras/ai` ;
 
     const loadNextEvents = async(e) => {
         e.preventDefault()
@@ -40,7 +40,14 @@ export default function CamEventTable(props) {
 
     //Load Video Clips
     useEffect(() => {
-      axios.get(aiEventsUrl)
+    console.log('Fetching Ai Clips')
+      axios.get(aiEventsUrl, 
+        {
+        params: {
+            id: camera._id
+          }
+        }
+        )
         .then((res) =>{
             console.log(res.data)
             setEvents(res.data.events.objects)
@@ -56,9 +63,13 @@ export default function CamEventTable(props) {
    
     useEffect(() => {
        if(refresh){
-        axios.get(aiEventsUrl)
+        axios.get(aiEventsUrl, {
+            params: {
+                id: camera._id
+              }
+            }
+        )
         .then((res) =>{
-            alert('ran')
             // console.log(res.data)
             setEvents(res.data.events.objects)
             setEventsMeta(res.data.events.meta)

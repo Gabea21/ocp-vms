@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const camera = new Schema({
     name: { type: String },
     model: { type: String },
+    passthrough:  { type: Boolean, default: true },
     ip: { type: String, required: true },// IP Address or Domain
     port: { type: String , default: '554'},//Rtsp Port ('554' is default internal port of IP camera) 
     path: { type: String }, // Rtsp Stream Path

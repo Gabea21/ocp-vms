@@ -51,7 +51,7 @@ export default function IncomingPlateTable(props) {
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
                             {data.plates.filter((val) => {
-                                console.log(val?.plateNum,searchItem)
+                                // console.log(val?.plateNum,searchItem)
                             if(searchItem === ''){
                                 return val
                             } else if (

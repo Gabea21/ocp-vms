@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                           }
                         })
 					console.log('Get Camera Image Records', 'id: '+id, 'end ', endTime, 'Curr ', currTime)
-				    res.status(200).json({ success: true, camera: camera, events: vxgRes.data});
+				   return res.status(200).json({ success: true, camera: camera, events: vxgRes.data});
 				}else if(  key === 'getImageSingle' ) {
 					const camera = await Camera.findOne({_id: id});
 					let currTime = new Date ().toLocaleString("en-US", {timeZone: "America/New_York"})
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
 						console.log(vxgRes)
 					console.log('Get Camera Image Records', 'id: '+id, 'end ', endTime, 'Curr ', currTime)
 
-				    res.status(200).json({ success: true, camera: camera, events: vxgRes.data});
+					return res.status(200).json({ success: true, camera: camera, events: vxgRes.data});
 				}else if(  key === 'video' ) {
 					console.log('getClips', 'id: '+id)
 					let startTime = encodeURIComponent(start) //Format Start Time
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
                           }
 					})
 					console.log(startTime)
-					res.status(200).json({ success: true, camera: camera, events: vxgRes.data, });
+					return	res.status(200).json({ success: true, camera: camera, events: vxgRes.data, });
 				}else if(  key === 'nextVideo' ) {
 					console.log('Get Next Clip', 'id: '+id)
 					console.log(start)
@@ -90,7 +90,7 @@ export default async function handler(req, res) {
                           }
 						})
 					console.log(vxgRes.data)
-					res.status(200).json({ success: true, camera: camera, events: vxgRes.data, });
+					return res.status(200).json({ success: true, camera: camera, events: vxgRes.data, });
 				}else if (key === 'calender'){
 					let daysincamtz = false; // Use Camera Local TimeZone
 					let boundstime = true ; // Returns Full time instead of 
@@ -102,9 +102,9 @@ export default async function handler(req, res) {
                             'Authorization': `Acc ${camera.vxg.allToken}`
                           }
 					})
-					res.status(200).json({ success: true, camera: camera, calender: vxgRes.data, });
+					return res.status(200).json({ success: true, camera: camera, calender: vxgRes.data, });
 				}else{
-				    res.status(400).json({ success: false, message: `This Key (${key}) is invalid`  });
+				    return res.status(400).json({ success: false, message: `This Key (${key}) is invalid`  });
 				}
 			} catch (error) {
                 console.log(error)

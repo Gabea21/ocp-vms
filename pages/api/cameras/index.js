@@ -55,9 +55,10 @@ export default async function handler(req, res) {
 					
 					const apiRes =  await  instance.post('/channels', { //Create AWSVXG Channel
 						client_id: client_id,
+						passthrough: req.body.passthrough === true ? 'true' : 'false', // Edge Ai Bypass
 						name: req.body.deviceName,
 						timezone: 'America/New_York',
-						rec_mode: req.body.recording ? req.body.recording : 'on', // VXG Record Mode
+						rec_mode: req.body.recording === 'on' ? 'on' : 'off', // VXG Record Mode
 						meta: {},
 						source: {
 							url: `rtsp://${req.body.deviceIp}:${req.body.devicePort}/${req.body.deviceStreamPath.length > 0 ? req.body.deviceStreamPath :''}`, 
@@ -70,7 +71,7 @@ export default async function handler(req, res) {
 					
 					const amsRes = await axios.post(`${process.env.MEDIA_SERVER_URL}/WebRTCAppEE/rest/v2/broadcasts/create?autoStart=true`,{
 						streamId: apiRes.data.channel_id,
-						streamUrl: `rtsp://${process.env.EDGE_SERVER_IP}:${process.env.EDGE_SERVER_PORT}/ds-${apiRes.data.channel_id}`, 
+						streamUrl: `rtsp://${process.env.EDGE_SERVER_IP}:${process.env.EDGE_SERVER_PORT}/${req.body.passthrough === true ? '' : 'ds-'}${apiRes.data.channel_id}`, 
 						username: apiRes.data.source.url.username,
 						password: apiRes.data.source.url.password,
 						type:"streamSource",
@@ -101,13 +102,13 @@ export default async function handler(req, res) {
 						location: req.body.deviceLocation,
 						timezone: apiRes.data.timezone,
 						antStreamId: amsRes.data.dataId , //Ant Media StreamID Currently Equal To VXG Channel_ID
-
+						passthrough: req.body.passthrough, // edge Ai Bypass
 						vxg:{
 							channel_id: apiRes.data.channel_id,
 							allToken: apiRes.data.access_tokens.all,
 							watchToken: apiRes.data.access_tokens.watch,
 							source: apiRes.data.source.url,
-							rec: req.body.recording ? req.body.recording : 'on', // VXG Record Mode
+							rec: req.body.recording === 'on' ? 'on' : 'off', // VXG Record Mode
 						},
 						ip: req.body.deviceIp,
 						port: req.body.devicePort,

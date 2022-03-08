@@ -250,7 +250,7 @@ export default function AiBoxModal(props) {
                                      {event.meta.Face &&
                                         <span className="inline-flex m-1 items-center px-3 py-0.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
                                         <FaHeadSideMask className="h-4 w-4"/>
-                                            {event.meta.Face === "1" ? '1 Face' : event.meta.Face +' Faces' } 
+                                            {event.meta.Face === "1" ? '1 Face_with_mask' : event.meta.Face +' Faces_with_mask' } 
                                         </span>
                                     }
                                      {event.meta.Face_without_mask &&

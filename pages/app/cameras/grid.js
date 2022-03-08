@@ -82,7 +82,7 @@ export default function Grid(props) {
     }, [])
     // const url ='/api/cameras';
     // const { data,error } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true});
-    if (loadError) return <div>failed to load</div>
+    if (loadError) return <div>Camera Walls Not Found</div>
     if (!loaded) return <div>loading...</div>
     console.log(selectedWall.name, cameras)
     return (
