@@ -45,7 +45,7 @@ export default function WebRelayControl(props) {
     const { data, error } = useSWR(`/api/webrelays?action=state&id=${webrelay?._id}`, fetcherFunc, {revalidateOnMount:true, refreshInterval: 1000 })
     if (error) return <div>failed to load</div>
     if (!data) return <div>loading...</div>
-    if(!data.success) return <div>No WebController Found...</div> // ToDo: Warning Modal for Catch Wrong IP Error 
+    if(!data.success) return <div>Loading Controller...</div> // ToDo: Warning Modal for Catch Wrong IP Error 
     return (
         <div className="relative grid grid-cols-1 sm:grid-cols-2 md::grid-cols-2 lg::grid-cols-2 xl::grid-cols-2 gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
             {webrelay.relays.map((relay,idx) => (

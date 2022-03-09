@@ -9,7 +9,9 @@ import WebRelayControl from '../section/WebRelayControl';
 import CameraService from '../services/CameraService';
 import WebRelayService from '../services/WebRelayService';
 import KioskAntPlay from '../kiosks/KioskAntPlay';
-import KioskAntPublish from '../kiosks/KioskAntPublish';
+import KioskControllerAntPublish from '../kiosks/KioskControllerAntPublish';
+import CamSinglePlayer from '../camera/players/CamSinglePlayer';
+import CamAntPublish from '../camera/players/CamAntPublish';
 
 async function fetcherFunc(url){
     const res = await fetch(url);
@@ -100,15 +102,14 @@ export default function KioskControlModal(props) {
                      {/* Video Component*/}
                
                     {camera && 
-                          <div className=" ml-4 flex flex-row">
+                          <div className="w-full relative">
                            
-                              <div className="w-[300px]">
-                                <KioskAntPlay kiosk_id={'kiosk-1234'} />
+                              <div className="w-full">
+                                <CamSinglePlayer camera={camera} />
                               </div>
-
-                              {/* <div className="w-[200px]">
-                                <KioskAntPublish kiosk_id={'concierge-1234'} />
-                              </div> */}
+                              <div className="w-[130px] sm:w-[200px] absolute top-2 right-2 z-[1000]">
+                                <KioskControllerAntPublish kiosk_id = {`${kiosk._id}-manager`} /> {/* set kiosk manager stream_id*/}
+                              </div>
                            </div>
                           }
 
