@@ -13,6 +13,7 @@ async function fetcherFunc(url){
     return res.json();
     }
 export default function ManageCameraTable(props) {
+    const { searchItem } = props;
     const  auth  = useAuthContext() // MenuContext object.
     const {cameras, locationFilter,setOpen} = props;
     const [loadedCameras, setLoadedCameras] = useState([]);
@@ -99,6 +100,13 @@ export default function ManageCameraTable(props) {
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
                         {loadedCameras.filter((val) => {
+                            if( searchItem  === '' ){
+                                return val
+                            }else if ( val.name?.toLowerCase().includes(searchItem?.toLowerCase()) || val.ip?.toLowerCase().includes(searchItem?.toLowerCase()) ){
+                                return val
+                            }
+                        }
+                        ).filter((val) => {
                             if(locationFilter  === ''){
                                 return val
                             } else if ( val.location?.toLowerCase().includes(locationFilter?.toLowerCase()) ){
