@@ -133,8 +133,8 @@ export default function CamSinglePlayer(props) {
     }
 console.log(videoRef)
     return (
-        <div className={maxHeight ? `bg-black p-1 max-h-[${maxHeight}]`:" bg-black  p-1 "}>
-            <video ref={videoRef} className= {maxHeight ? `w-full max-w-[1000px]  m-auto max-h-[${maxHeight}]`:"w-full max-w-[1000px]  m-auto"} id={`remoteVideo${props.index}${props.camera?._id}`} autoPlay muted controls playsInline
+        <div>
+            <video ref={videoRef} className= {maxHeight ? `w-full max-w-[1000px]  m-auto max-h-[500px]` : "w-full max-w-[1000px]  m-auto"} id={`remoteVideo${props.index}${props.camera?._id}`} autoPlay muted controls playsInline
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={true} webkitallowfullscreen="true" mozallowfullscreen="true" />       
         </div>
