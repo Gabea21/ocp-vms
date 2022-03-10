@@ -153,7 +153,7 @@ useEffect(() => {
         <div className=" bg-black max-h-[480px] p-1 ">
             <div style={{width:'100%', maxWidth:'1200px' , margin:'auto' , display:'block', position: 'relative'}} >
              
-                    <video  style={{width:'100%', height:'auto', minHeight:"220px", maxHeight:'440px'}} id={remoteVideoId} autoPlay controls playsInline
+                    <video  style={{width:'100%', height:'auto', minHeight:"220px", maxHeight:'440px', display:'relative'}} id={remoteVideoId} autoPlay controls playsInline
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
               
             </div>

@@ -106,7 +106,7 @@ export default function KioskControlModal(props) {
                           <div className="w-full relative">
                            
                               <div className="w-full max-h-[500px]">
-                                <CamSinglePlayer camera={camera} />
+                                <CamSinglePlayer  maxHeight="400px" camera={camera} />
                               </div>
                               <div className="w-[130px] sm:w-[200px] absolute top-2 right-2 z-[1000]">
                                 <KioskControllerAntPublish kiosk_id = {`${kiosk.kiosk_id}-manager`} /> {/* set kiosk manager stream_id*/}

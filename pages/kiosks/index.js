@@ -19,13 +19,13 @@ export default function index(props) {
     const { data:kioskManagerData ,error } = useSWR( kioskData ? url2 : null, fetcherFunc, {initialProps: props , refreshInterval:2000 });
     if (kioskError) return <div>failed to load</div>
     if (!kioskData) return <div>loading...</div>
-   console.log(kioskManagerData)
+   
     return (
         <div>
            <div className="max-w-[800px]">
                <KioskAntPublish kiosk_id={kioskData.kiosk.kiosk_id} />
                <div className="bg-white p-2 rounded fixed  bottom-2 right-2 max-w-[300px]">
-                 {kioskManagerData?.streamId === `${kioskData.kiosk.kiosk_id}-manager` ?   <KioskAntPlay kiosk_id={`${kioskData.kiosk.kiosk_id}-manager`} /> : ''}
+                 {kioskManagerData?.streamId === `${kioskData.kiosk.kiosk_id}-manager`&&   <KioskAntPlay kiosk_id={`${kioskData.kiosk.kiosk_id}-manager`} />}
                </div>
            </div>
         </div>
