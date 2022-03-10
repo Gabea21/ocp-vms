@@ -4,8 +4,12 @@ import React, { useEffect, useState } from 'react';
 import WebRTCAdaptor from '../lib/webrtc_adaptor';
 import {HiOutlineStatusOnline, HiStatusOffline} from 'react-icons/hi';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
-
+async function fetcherFunc(url){
+    const res = await fetch(url);
+    return res.json();
+    }
 export default function KioskAntPlay(props) {
     const {kiosk_id} = props;
     const [mediaConstraints, setMediaConstraints] = useState({
@@ -137,49 +141,21 @@ export default function KioskAntPlay(props) {
             }
         });
     }
+useEffect(() => {
+    if(webRTCAdaptor){
+        console.log(webRTCAdaptor.iceConnectionState(streamName))
+
+    }
+}, [webRTCAdaptor])
+
 
     return (
         <div className=" bg-black max-h-[480px] p-1 ">
-           <div className="flex flex-row justify-center inset-x-0 top-0">
-                <div className="flex flex-row justify-between px-[0.55rem] py-[0.2rem]  w-full  bg-black ">
-                    {/* <div className="inline-flex items-center px-1 border-indigo-300 border-[1px] rounded-md text-sm font-medium  text-white">
-
-                    </div> */}
-                    {
-                        !connectionError ? (
-                            <div>
-                                <span className=" inline-flex items-center px-1 border-indigo-300 border-[1px] rounded-md text-sm font-medium  text-white">
-                                        Live
-                                        <HiOutlineStatusOnline size={18} className=" text-green-600 animate-pulse ml-2" />
-                                </span>
-                            </div>
-                        ) : (
-                        <div>
-                            <span className="inline-flex items-center px-1 border-indigo-300 border-[1px] rounded-md text-sm font-medium  text-white"> 
-                                No Call Recieved
-                                <HiStatusOffline size={18} className="animate-ping text-red-600 ml-2" />
-                            </span>
-                        </div>
-                    )}
-                </div>
-           </div>
             <div style={{width:'100%', maxWidth:'1200px' , margin:'auto' , display:'block', position: 'relative'}} >
-               {!connectionError ?
-                <>
-                        <video  style={{width:'100%', height:'auto', minHeight:"220px", maxHeight:'440px'}} id={`remoteVideo${kiosk_id}`} autoPlay controls playsInline
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen={true} webkitallowfullscreen="true" mozallowfullscreen="true" />
-                </>
-                :
-                <>
-                {/* Video Messages */}
-                    {/* <div style={{color:"#FFF", position: "absolute", top: "0" ,left: "0" ,display: "flex " ,flexDirection: "column" , justifyContent: "center" ,alignItems: "start",  width: "100%" , height: "100%"}}>
-                             We Can Place Messages On Screen
-                    </div> */}
-                    {/* <video  style={{width:'100%', height:'auto', minHeight:"220px"}} id={`remoteVideo${kiosk_id}`} autoPlay controls playsInline
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen={true} webkitallowfullscreen="true" mozallowfullscreen="true" /> */}
-                </>}
+             
+                    <video  style={{width:'100%', height:'auto', minHeight:"220px", maxHeight:'440px'}} id={remoteVideoId} autoPlay controls playsInline
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
+              
             </div>
         </div>
     )

@@ -2,6 +2,7 @@ import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 import KioskControlModal from "../modal/KioskControlModal";
 import KioskService from "../services/KioskService"
+import { MdContentCopy } from "react-icons/md";
 
 async function fetcherFunc(url){
     const res = await fetch(url);
@@ -68,7 +69,7 @@ export default function KioskListTable(props) {
                                 scope="col"
                                 className="px-6 py-3 text-left text-md font-medium text-gray-500 uppercase tracking-wider"
                             >
-                                Edit
+                                Kiosk URL
                             </th>
                             <th
                                 scope="col"
@@ -110,16 +111,21 @@ export default function KioskListTable(props) {
                                         {kiosk.location}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                <td className="px-6 py-4 whitespace-nowrap  text-md font-medium">
                                  <span  onClick ={(e) => handleViewKiosk(e,kiosk)} className="px-4 py-2 cursor-pointer inline-flex text-md leading-5 font-semibold rounded-full bg-blue-300 text-blue-800">
                                     View
                                 </span>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                <td  className="px-6 py-4 whitespace-nowrap">
+                                    <div onClick={() => {navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/kiosks/?kiosk_id=${kiosk.kiosk_id}`)}} className="flex items-center cursor-pointer hover:animate-[ping_3s_infinite]">
+                                       <MdContentCopy/> Copy URL
+                                    </div>
+                                </td>
+                                {/* <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                  <span onClick ={(e) => handleEditKiosk(e,kiosk)} className="px-4 py-2 cursor-pointer inline-flex text-md leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
                                     Edit
                                 </span>
-                                </td>
+                                </td> */}
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <span onClick={(e) => handleDeleteKiosk(e,kiosk) } className="px-4 py-2 cursor-pointer inline-flex text-md leading-5 font-semibold rounded-full bg-rose-200 text-rose-800">
                                         Delete

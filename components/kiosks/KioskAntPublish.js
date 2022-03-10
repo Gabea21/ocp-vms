@@ -23,11 +23,10 @@ export default function KioskAntPublish(props) {
         OfferToReceiveVideo: false
     })
     const [websocketURL, setWebsocketURL] = useState(`wss://${process.env.NEXT_PUBLIC_MEDIA_SERVER_DOMAIN}:${process.env.NEXT_PUBLIC_MEDIA_SERVER_SECURE_PORT}/WebRTCAppEE/websocket`)  //ADD ENV AM_SERVER_URL 
-    const [isShow, setIsShow] = useState(false);
     const [webRTCAdaptor, setWebRTCAdaptor] = useState(null)
     const [connectionError, setConnectionError] = useState(false)
     const [connected, setConnected] = useState(false)
-    const [showVod, setShowVod] = useState(false)
+    const [isShow, setIsShow] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
@@ -79,17 +78,14 @@ export default function KioskAntPublish(props) {
             callback: function (info, obj) {
                 if (info == "initialized") {
                     console.log("initialized");
-
+                    setConnected(true)
                 } else if (info == "publish_started") {
                     //stream is being published
                     console.log("publish started");
                     // alert("publish started");
-                    setIsShow(false)
-
                 } else if (info == "publish_finished") {
                     //stream is being finished
                     console.log("publish finished");
-                    setIsShow(true)
 
                 } else if (info == "closed") {
                     //console.log("Connection closed");
@@ -133,37 +129,20 @@ export default function KioskAntPublish(props) {
         });
     }
 
+    useEffect(() => {
+       if(connected && isShow){
+         onStartPublishing()
+       }
+    }, [connected,isShow])
     return (
         <div>
          
-           <div className="max-w-[800px] max-h-[500px]">
+            <div className="max-w-[800px] max-h-[500px]">
                 <video width="100%" height="auto" id={`localVideo${kiosk_id}`} autoPlay muted  playsInline/>
             </div>
         
-            <div className="flex flex-row justify-center bg-[#2d318b] text-white mt-8 shadow-xl rounded-2xl">{
-                isShow ? (
-                    <div>
-                        <button
-                            onClick={() => onStartPublishing( )}
-                            className=" p-2 text-4xl sm:text-5xl md:text-7xl lg:text-8xl "
-                            id="start_play_button"> 
-                            Call Garage Attendee
-                        </button>
-                    </div>
-                ) :   (
-                    <>
-                    <div className="flex flex-row justify-center">
-                        <span className="text-white p-2 text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
-                        {kiosk_id.toUpperCase()}
-                    </span>
-                    </div>
-                    <div className="text-8xl " >
-                         <button onClick={(e) => handleEndCall(e)}>End Call</button>
-                     </div>
-                    </>
-                )
-            }
-            </div>            
+           
+       
         </div>
     )
 }

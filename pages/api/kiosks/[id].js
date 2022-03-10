@@ -12,9 +12,9 @@ export default async function handler(req, res) {
 		case 'GET' /* Get a model by its ID */:
 			try {
 				const kiosk = await Kiosk.findOne({_id: id});
-				// if (!camera) {
-				// 	return res.status(400).json({ success: false });
-				// }
+				if (!kiosk) {
+					return res.status(422).json({ success: false, message:'No Kiosk Found' });
+				}
 				res.status(200).json({ success: true, kiosk: kiosk});
 			} catch (error) {
 				res.status(400).json({ success: false });

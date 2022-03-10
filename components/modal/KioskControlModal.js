@@ -37,6 +37,7 @@ export default function KioskControlModal(props) {
     } 
     const getKioskCamera = async (kiosk) => {
       const res = await CameraService.getCamera(kiosk.camera_id)
+      res.data.camera.antStreamId = kiosk.kiosk_id //remove for kiosks with IPcamera instead of tablet cam
       setCamera(res.data.camera)
     }
     const getKioskWebRelay = async (kiosk) => {
@@ -104,11 +105,11 @@ export default function KioskControlModal(props) {
                     {camera && 
                           <div className="w-full relative">
                            
-                              <div className="w-full">
+                              <div className="w-full max-h-[500px]">
                                 <CamSinglePlayer camera={camera} />
                               </div>
                               <div className="w-[130px] sm:w-[200px] absolute top-2 right-2 z-[1000]">
-                                <KioskControllerAntPublish kiosk_id = {`${kiosk._id}-manager`} /> {/* set kiosk manager stream_id*/}
+                                <KioskControllerAntPublish kiosk_id = {`${kiosk.kiosk_id}-manager`} /> {/* set kiosk manager stream_id*/}
                               </div>
                            </div>
                           }

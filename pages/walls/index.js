@@ -5,7 +5,8 @@ import CamGridPlayer from "../../components/camera/players/CamGridPlayer";
 import {
     ViewGridAddIcon,
   } from '@heroicons/react/outline'
-async function fetcherFunc(url){
+
+  async function fetcherFunc(url){
     const res = await fetch(url);
     return res.json();
     }

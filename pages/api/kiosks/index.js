@@ -15,18 +15,18 @@ export default async function handler(req, res) {
 			} = req;
 			try {
 				if(id){
-					console.log('Get Kiosk by Device  Id', id)
-					const kiosk = await Kiosk.find(
+					console.log('Get Kiosk by Kiosk_Id', id)
+					const kiosk = await Kiosk.findOne(
 						{kiosk_id: id}
 					); 
 					console.log('Got Kiosk',kiosk )
-					res.status(200).json({ success: true, kiosk: kiosk });
+					return res.status(200).json({ success: true, kiosk: kiosk });
 				}else{
 					console.log('Get  All Kiosks')
 					const kiosks = await Kiosk.find(
 						{}
 					).sort({ createdAt: -1 }); 
-					res.status(200).json({ success: true, kiosks: kiosks });
+					return res.status(200).json({ success: true, kiosks: kiosks });
 				}
 			} catch (error) {
 				res.status(400).json({ success: false });
