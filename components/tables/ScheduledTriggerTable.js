@@ -52,7 +52,7 @@ export default function ScheduledTriggerTable(props) {
     const { data : triggersData,error } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true , refreshInterval: 2000});
     if (error) return <div>failed to load</div>
     if (!triggersData) return <div>loading...</div>
-   console.log(triggersData)
+
     return (
         <div className="flex flex-col mt-4">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

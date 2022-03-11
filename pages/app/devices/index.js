@@ -16,9 +16,9 @@ export default function index(props) {
     const [selectedLocation, setSelectedLocation] = useState('');
     const [searchItem, setSearchItem] = useState('');
     const devices = [
-        { name: 'Cameras',type:'camera', href: '#', current: selectedDeviceType === 'camera' ? true : false },
-        { name: 'Kiosks',type:'kiosk', href: '#', current: selectedDeviceType === 'kiosk' ? true : false  },
-        { name: 'Doors',type:'webrelay', href: '#', current: selectedDeviceType === 'webrelay' ? true : false }, //webrelay UI reffered to 
+        { name: 'Cameras',type:'camera', href: '?filter=camera', current: selectedDeviceType === 'camera' ? true : false },
+        { name: 'Door Control',type:'webrelay', href: '?filter=webrelay', current: selectedDeviceType === 'webrelay' ? true : false }, //webrelay UI reffered to 
+        { name: 'Kiosks',type:'kiosk', href: '?filter=kiosk', current: selectedDeviceType === 'kiosk' ? true : false  },
     ]
    
     const handleSelectDevice = (e,deviceType) => {
@@ -121,16 +121,16 @@ export default function index(props) {
                    <ManageCamerasToolbar />
                    <CameraListTable locationFilter = {selectedLocation} searchItem = {searchItem} />
                  </div>}
-                {selectedDeviceType === 'kiosk' &&
-                 <div className="bg-black px-2 pb-4">
-                   <ManageKiosksToolbar />
-                   <KioskListTable locationFilter = {selectedLocation}  searchItem = {searchItem}/>
-                 </div>}
                 {selectedDeviceType === 'webrelay' && 
                    <div className="bg-black px-2 pb-4">
                        <ManageWebRelayToolbar />
                        <WebrelayListTable locationFilter = {selectedLocation}  searchItem = {searchItem} />
                     </div>}
+                {selectedDeviceType === 'kiosk' &&
+                 <div className="bg-black px-2 pb-4">
+                   <ManageKiosksToolbar />
+                   <KioskListTable locationFilter = {selectedLocation}  searchItem = {searchItem}/>
+                 </div>}
                 
             </div>
         </div>

@@ -3,7 +3,8 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { PhoneIcon, PlayIcon, XIcon } from '@heroicons/react/outline'
 import useSWR, { useSWRConfig } from "swr";
-import WebRelayControl from '../section/WebRelayControl';
+import WebRelayQuadOldControl from '../section/WebRelayQuadOldControl';
+import WebRelayX410Control from '../section/WebRelayX410Control';
 
 
 export default function WebRelayControlModal(props) {
@@ -67,7 +68,9 @@ export default function WebRelayControlModal(props) {
 
                         {/* Control Panel */}
                       <div >
-                        <WebRelayControl webrelay={webrelay} />
+                       {webrelay.model === 'Quad_OLD' && <WebRelayQuadOldControl webrelay={webrelay} />}
+                       {(webrelay.model === 'X410' || webrelay.model === 'X401') && <WebRelayX410Control webrelay={webrelay} />}
+
                       </div>
                 
                     {/* /End Content */}

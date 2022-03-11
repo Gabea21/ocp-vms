@@ -28,10 +28,7 @@ export default function trigger() {
         setSelectedEditItem(selectedEditItem)
         setContactEdit(true)
     }
-    const handleAddMember = (e) => {
-        console.log('added')
-    }
-
+  
     useEffect(async() => {
         if(contactEdit){
            const res = await axios.put(`/api/triggers?trigger_id=${selectedEditItem._id}`,{
@@ -42,7 +39,6 @@ export default function trigger() {
             setContactEdit(false)
         }
     }, [contactEdit])
-    console.log(selectedEditItem)
 
 
     const triggerTypes = [
@@ -113,7 +109,9 @@ export default function trigger() {
                  <ManageTriggersToolbar filterType ={filterType}  addTrigger={addTrigger} setAddTrigger={setAddTrigger} editListItem={editListItem} item={selectedEditItem} setEditListItem={setEditListItem} />
                 { !editListItem ?(
              
-                    filterType === 'instant'  ||   filterType === '' ? <TriggerListTable handleEditItem={handleEditItem}  searchItem={searchItem} /> : <ScheduledTriggerTable  searchItem={searchItem} />
+                    filterType === 'instant'  ||   filterType === '' ? 
+                    <TriggerListTable handleEditItem={handleEditItem}  searchItem={searchItem} /> 
+                    : <ScheduledTriggerTable  searchItem={searchItem} />
                    
                 ):(
                 <TriggerEditForm selectedEditItem={selectedEditItem}  deleteNotifMember={ deleteNotifMember}/>

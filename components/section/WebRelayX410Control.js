@@ -6,7 +6,7 @@ async function fetcherFunc(url){
     const res = await fetch(url);
     return res.json();
     }
-export default function WebRelayControl(props) {
+export default function WebRelayX410Control(props) {
     const {webrelay} = props;
     const {mutate} = useSWRConfig()
 
@@ -46,6 +46,7 @@ export default function WebRelayControl(props) {
     if (error) return <div>failed to load</div>
     if (!data) return <div>loading...</div>
     if(!data.success) return <div>Loading Controller...</div> // ToDo: Warning Modal for Catch Wrong IP Error 
+    console.log(data)
     return (
         <div className="relative grid grid-cols-1 sm:grid-cols-2 md::grid-cols-2 lg::grid-cols-2 xl::grid-cols-2 gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
             {webrelay.relays.map((relay,idx) => (
@@ -75,7 +76,7 @@ export default function WebRelayControl(props) {
 
                             {/* Use Device Relay State Hook */}
                             <div className="mt-4">
-                                {data.webrelay[idx][1][0] === '1' || data.webrelay[idx][1] === 1 ? 
+                            {(data.webrelay[idx] === '1' || data.webrelay[idx] === 1 )? 
                                     <p className="mt-1 flex flex-row text-2xl  decoration-double decoration-green-300 underline  text-gray-500 ">
                                     <AiFillUnlock className="mr-2 pt-1 " size={34}/> Open
                                     </p>

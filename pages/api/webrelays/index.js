@@ -42,56 +42,15 @@ export default async function handler(req, res) {
                     }
                 }else if(action === 'state'){
 
-                    let webRelayState = {};
                     const foundWebRelay  = await WebRelay.findOne({_id: id})
-                        if(!foundWebRelay){
-                            return res.status(400).json({success:true, message: 'No WebRelay Found'})
-                        }
-                    const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml`)// Missing relay endpoint
-                    xml2js.parseString(response.data, (err, result) => {
-                        if(err) {
-                            throw err;
-                        }
-                        // `result` is a JavaScript object
-                        // convert it to a JSON string
-                        const json = JSON.stringify(result, null, 4);
-                        // Set WebRelayState to current values;
-                        webRelayState = Object.entries(result.datavalues);    //For webRelaxy Quad (og), cnvrt array{} => object[]
-                    });
-                    console.log(webRelayState)
-                    return res.status(200).json({success:true, webrelay: webRelayState})
-                   
-                }else if (action === 'toggle'){
-                    if (action_type === 'on'){
+                    if(!foundWebRelay){
+                        return res.status(400).json({success:true, message: 'No WebRelay Found'})
+                    }
 
+                    if(foundWebRelay.model === 'Quad_OLD'){
+    
                         let webRelayState = {};
-                        const foundWebRelay  = await WebRelay.findOne({_id: id}) 
-                            if(!foundWebRelay){
-                                return res.status(400).json({success:true, message: 'No WebRelay Found'})
-                            }
-                        const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml?${relay_id}=1`) //Missing WebRelay IP:PORT
-                        console.log( 'response error',response.status,response.data,)
-                        xml2js.parseString(response.data, (err, result) => {
-                            if(err) {
-                                throw err;
-                            }
-                            // `result` is a JavaScript object
-                            // convert it to a JSON string
-                            const json = JSON.stringify(result, null, 4);
-                            // Set WebRelayState to current values;
-                            // webRelayState = Object.entries(result.datavalues);    //For webRelaxy Quad (og), cnvrt array{} => object[]
-                        });
-                        console.log('Toggled On','state='+webRelayState,`relay_id: ${relay_id}`)
-                        return res.status(200).json({success:true, webrelay: webRelayState})
-                        
-                    }else if (action_type === "off"){
-                      
-                        let webRelayState = {};
-                        const foundWebRelay  = await WebRelay.findOne({_id: id}) 
-                            if(!foundWebRelay){
-                                return res.status(400).json({success:true, message: 'No WebRelay Found'})
-                            }
-                        const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml?${relay_id}=0`)   
+                        const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml`)
                         xml2js.parseString(response.data, (err, result) => {
                             if(err) {
                                 throw err;
@@ -102,31 +61,178 @@ export default async function handler(req, res) {
                             // Set WebRelayState to current values;
                             webRelayState = Object.entries(result.datavalues);    //For webRelaxy Quad (og), cnvrt array{} => object[]
                         });
-                        console.log('Toggled Off','state='+webRelayState,`relay_id: ${relay_id}`)
+                        console.log('Retrieved WebRelay State',foundWebRelay?._id, webRelayState)
                         return res.status(200).json({success:true, webrelay: webRelayState})
+
+                    }else if (foundWebRelay.model === 'X401'){
+                       
+                        let webRelayState = {};
+                        const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json`)
+                        webRelayState = [
+                            response.data.relay1,
+                            response.data.relay2,
+                        ]
+                        console.log('Retrieved WebRelay State',foundWebRelay?._id,response.data)
+                        return res.status(200).json({success:true, webrelay: response.data})
+
+                    }else if (foundWebRelay.model === 'X410'){
+                       
+                        let webRelayState = {};
+                        const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json`)
+                        webRelayState = [
+                            response.data.relay1,
+                            response.data.relay2,
+                            response.data.relay3,
+                            response.data.relay4
+                        ]
+                        console.log('Retrieved WebRelay State',foundWebRelay?._id, response.data)
+                        return res.status(200).json({success:true, webrelay:  webRelayState})
+
+                    }else{
+                        return res.status(422).json({success:true, message: 'WebRelay Model Invalid'})
+                    }
+                   
+                }else if (action === 'toggle'){
+                    const foundWebRelay  = await WebRelay.findOne({_id: id}) 
+                    if(!foundWebRelay){
+                        return res.status(400).json({success:true, message: 'No WebRelay Found'})
+                    }
+
+                    if (action_type === 'on'){
+
+                        if(foundWebRelay.model === 'Quad_OLD'){
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml?${relay_id}=1`) 
+                            console.log( 'response error',response.status,response.data,)
+                            xml2js.parseString(response.data, (err, result) => {
+                                if(err) {
+                                    throw err;
+                                }
+                                // `result` is a JavaScript object
+                                // convert it to a JSON string
+                                const json = JSON.stringify(result, null, 4);
+                                // Set WebRelayState to current values;
+                                // webRelayState = Object.entries(result.datavalues);    //For webRelaxy Quad (og), cnvrt array{} => object[]
+                            });
+                            console.log('Toggled On','state='+webRelayState,`relay_id: ${relay_id}`)
+                            return res.status(200).json({success:true, webrelay: webRelayState})
+                        }else if (foundWebRelay.model === 'X401'){
+                       
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json?${relay_id}=1.0000`)
+                            webRelayState = [
+                                response.data.relay1,
+                                response.data.relay2,
+                            ]
+                            console.log('Retrieved WebRelay State',foundWebRelay?._id,response.data)
+                            return res.status(200).json({success:true, webrelay: response.data})
+    
+                        }else if (foundWebRelay.model === 'X410'){
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json?${relay_id}=1.0000`)
+                            webRelayState = [
+                                response.data.relay1,
+                                response.data.relay2,
+                                response.data.relay3,
+                                response.data.relay4
+                            ]
+                            console.log('Retrieved WebRelay State',foundWebRelay?._id, response.data)
+                            return res.status(200).json({success:true, webrelay:  webRelayState})
+    
+                        }else{
+                            return res.status(422).json({success:true, message: 'WebRelay Model Invalid'})
+                        }
+                        
+                    }else if (action_type === "off"){
+                        if(foundWebRelay.model === 'Quad_OLD'){
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml?${relay_id}=0`) 
+                            console.log( 'response error',response.status,response.data,)
+                            xml2js.parseString(response.data, (err, result) => {
+                                if(err) {
+                                    throw err;
+                                }
+                                // `result` is a JavaScript object
+                                // convert it to a JSON string
+                                const json = JSON.stringify(result, null, 4);
+                                // Set WebRelayState to current values;
+                                // webRelayState = Object.entries(result.datavalues);    //For webRelaxy Quad (og), cnvrt array{} => object[]
+                            });
+                            console.log('Toggled On','state='+webRelayState,`relay_id: ${relay_id}`)
+                            return res.status(200).json({success:true, webrelay: webRelayState})
+                        }else if (foundWebRelay.model === 'X401'){
+                       
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json?${relay_id}=0.0000`)
+                            webRelayState = [
+                                response.data.relay1,
+                                response.data.relay2,
+                            ]
+                            console.log('Retrieved WebRelay State',foundWebRelay?._id,response.data)
+                            return res.status(200).json({success:true, webrelay: response.data})
+    
+                        }else if (foundWebRelay.model === 'X410'){
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json?${relay_id}=0.0000`)
+                            webRelayState = [
+                                response.data.relay1,
+                                response.data.relay2,
+                                response.data.relay3,
+                                response.data.relay4
+                            ]
+                            console.log('Retrieved WebRelay State',foundWebRelay?._id, response.data)
+                            return res.status(200).json({success:true, webrelay:  webRelayState})
+    
+                        }else{
+                            return res.status(422).json({success:true, message: 'WebRelay Model Invalid'})
+                        }
 
                     }else if(action_type === "pulse"){
                         
-                        let webRelayState = {};
-                        const foundWebRelay  = await WebRelay.findOne({_id: id}) 
-                            if(!foundWebRelay){
-                                return res.status(400).json({success:true, message: 'No WebRelay Found'})
-                            }
-                        const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml?${relay_id}=2`)
-                        
-                        xml2js.parseString(response.data, (err, result) => {
-                            if(err) {
-                                throw err;
-                            }
-                            // `result` is a JavaScript object
-                            // convert it to a JSON string
-                            const json = JSON.stringify(result, null, 4);
-                            // Set WebRelayState to current values;
-                            webRelayState = Object.entries(result.datavalues);    //For webRelaxy Quad (og), cnvrt array{} => object[]
-                        });
-                        console.log('Toggled Pulse','state='+webRelayState,`relay_id: ${relay_id}`)
+                        if(foundWebRelay.model === 'Quad_OLD'){
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/stateFull.xml?${relay_id}=2`) 
+                            console.log( 'response error',response.status,response.data,)
+                            xml2js.parseString(response.data, (err, result) => {
+                                if(err) {
+                                    throw err;
+                                }
+                                // `result` is a JavaScript object
+                                // convert it to a JSON string
+                                const json = JSON.stringify(result, null, 4);
+                                // Set WebRelayState to current values;
+                                // webRelayState = Object.entries(result.datavalues);    //For webRelaxy Quad (og), cnvrt array{} => object[]
+                            });
+                            console.log('Toggled On','state='+webRelayState,`relay_id: ${relay_id}`)
+                            return res.status(200).json({success:true, webrelay: webRelayState})
+
+                        }else if (foundWebRelay.model === 'X401'){
                        
-                        return res.status(200).json({success:true, webrelay: webRelayState})
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json?${relay_id}=2.0000`)
+                            webRelayState = [
+                                response.data.relay1,
+                                response.data.relay2,
+                            ]
+                            console.log('Retrieved WebRelay State',foundWebRelay?._id,response.data)
+                            return res.status(200).json({success:true, webrelay: response.data})
+    
+                        }else if (foundWebRelay.model === 'X410'){
+                            
+                            let webRelayState = {};
+                            const response = await axios.get(`http://${foundWebRelay.ip}:${foundWebRelay.port}/customState.json?${relay_id}=2.0000`)
+                            webRelayState = [
+                                response.data.relay1,
+                                response.data.relay2,
+                                response.data.relay3,
+                                response.data.relay4
+                            ]
+                            console.log('Retrieved WebRelay State',foundWebRelay?._id, response.data)
+                            return res.status(200).json({success:true, webrelay:  webRelayState})
+    
+                        }else{
+                            return res.status(422).json({success:true, message: 'WebRelay Model Invalid'})
+                        }
                     }else{
                         //  Missing Action Type
                         return res.status(400).json({success: false , message: 'No Action Type Defined!'})
@@ -135,7 +241,7 @@ export default async function handler(req, res) {
 
 			} catch (error) {
                 res.status(400).json({ success: false });
-                console.log('List Callback',error)
+                console.log('WebRelay Get Error',error)
 			}
             break;
         case 'POST': //  Create WebRelay

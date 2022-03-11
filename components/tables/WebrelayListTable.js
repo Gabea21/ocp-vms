@@ -82,7 +82,7 @@ export default function WebrelayListTable(props) {
                             }}).filter((val) => {
                                 if(searchItem === ''){
                                     return val
-                                } else if ( val.name?.toLowerCase().includes(searchItem.toLowerCase()) || val.location?.toLowerCase().includes(searchItem.toLowerCase()) ){
+                                } else if ( val.name?.toLowerCase().replaceAll('-', '').includes(searchItem.toLowerCase()) || val.location?.toLowerCase().replaceAll('-', '').includes(searchItem.toLowerCase()) ){
                                     return val
                                 }}).map((webrelay) => (
                             <tr key={webrelay._id}>

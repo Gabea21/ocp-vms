@@ -5,7 +5,7 @@ import { PhoneIcon, PlayIcon, XIcon } from '@heroicons/react/outline'
 import axios from 'axios';
 import CamAnt from '../camera/CamAnt';
 import useSWR from "swr";
-import WebRelayControl from '../section/WebRelayControl';
+import WebRelayControl from '../section/WebRelayQuadOldControl';
 import CameraService from '../services/CameraService';
 import WebRelayService from '../services/WebRelayService';
 import KioskAntPlay from '../kiosks/KioskAntPlay';

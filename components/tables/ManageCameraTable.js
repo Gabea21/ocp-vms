@@ -15,11 +15,42 @@ async function fetcherFunc(url){
 export default function ManageCameraTable(props) {
     const { searchItem } = props;
     const  auth  = useAuthContext() // MenuContext object.
-    const {cameras, locationFilter,setOpen} = props;
+    const {locationFilter,setOpen} = props;
     const [loadedCameras, setLoadedCameras] = useState([]);
     const [camPreviews, setCamPreviews] = useState([])
     const [loaded, setLoaded] = useState(false);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [numberOfPages, setNumberOfPages] = useState(0);
 
+
+    useEffect(() => {
+        fetch(`/api/cameras?page=${pageNumber}`)
+          .then((response) => response.json())
+          .then(({ totalPages,cameras }) => {
+            setLoadedCameras(cameras );
+            setNumberOfPages(totalPages);
+            const resultArray = async () => {
+                const resArr = await Promise.all(cameras.map(async (cam) => getCamPreview(cam)));
+                return resArr
+            }  
+            resultArray().then((result) => {
+                setCamPreviews(result)
+                setLoadedCameras(cameras)
+
+            } )
+          });
+      }, [pageNumber]);
+      
+      const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
+
+      const gotoPrevious = () => {
+        setPageNumber(Math.max(0, pageNumber - 1));
+      };
+    
+      const gotoNext = () => {
+        setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
+      };
+    
     const getCamPreview = async(cam) => {
         try{
            
@@ -102,7 +133,7 @@ export default function ManageCameraTable(props) {
                         {loadedCameras.filter((val) => {
                             if( searchItem  === '' ){
                                 return val
-                            }else if ( val.name?.toLowerCase().includes(searchItem?.toLowerCase()) || val.ip?.toLowerCase().includes(searchItem?.toLowerCase()) ){
+                            }else if ( val.name?.toLowerCase().replaceAll('-', '').includes(searchItem?.toLowerCase()) || val.ip?.toLowerCase().includes(searchItem?.toLowerCase()) ){
                                 return val
                             }
                         }
@@ -126,7 +157,7 @@ export default function ManageCameraTable(props) {
                                                     ):(
                                                         <div className=" cursor-pointer border-2 border-blue-500 bg-black flex flex-col justify-center items-center">
                                                             <Link  href={`/app/cameras/${cam._id}`}>
-                                                                <img width="160px" height="130px" src={camPreviews[idx]?.url} alt={cam.name} className="object-cover" />
+                                                                <img width="160px" height="130px" src={camPreviews[idx]?.url} alt={''} className="object-cover" />
                                                             </Link>
                                                         </div> 
                                                     )}
@@ -163,8 +194,38 @@ export default function ManageCameraTable(props) {
                             })}
                         </tbody>
                         </table>
+                        <nav
+                            className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+                            aria-label="Pagination"
+                            >
+                            <div className="flex-1 flex justify-start ">
+                                <a
+                                onClick={gotoPrevious}
+                                href="#"
+                                className="cursor-pointer relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                                >
+                                Previous
+                                </a>
+                                <a
+                                onClick={gotoNext}
+                                className="cursor-pointer ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                                >
+                                Next
+                                </a>
+                            </div>
+                             <div className="bg-white py-[1.25rem]  flex flex-row justify-between items-center" >
+                                {pages.map((pageIndex) => (
+                                    <button key={pageIndex} onClick={() => setPageNumber(pageIndex)} className={pageIndex === pageNumber ? "m-2 p-2 rounded bg-gray-200 shadow-lg shadow-blue-600 px-2 border-4 border-blue-800 w-10 h-10 flex flex-col justify-center items-center" : "p-2 rounded bg-gray-200 shadow-lg px-2  w-10 h-10 flex flex-col justify-center items-center"}>
+                                    {pageIndex + 1}
+                                    </button>
+                                ))}
+                               
+                            </div>
+                            
+                        </nav>
                     </div>
                 </div>
+               
             </div>
         </div>
     )

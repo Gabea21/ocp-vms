@@ -155,7 +155,33 @@ export default function AddScheduledTriggerModal(props) {
                         return { ...prevValues,triggerEndpoint: endpoint}
                         })
                }
-           }
+            }else if (selectedWebrelay.model === 'X401'){
+                // Handle SSL IP
+                if(selectedWebrelay.ip.includes('.com') || selectedWebrelay.ip.includes('.app') || selectedWebrelay.ip.includes('.io') || selectedWebrelay.ip.includes('.net')){
+                     let endpoint = `https://${selectedWebrelay.ip}:${selectedWebrelay.port}/customState.json?${selectedRelay.relay_id}=${selectedRelayPosition}`
+                     setAllValues( prevValues => {
+                         return { ...prevValues,triggerEndpoint: endpoint}
+                         })
+                }else{
+                     let endpoint = `http://${selectedWebrelay.ip}:${selectedWebrelay.port}/customState.json?${selectedRelay.relay_id}=${selectedRelayPosition}`
+                     setAllValues( prevValues => {
+                         return { ...prevValues,triggerEndpoint: endpoint}
+                         })
+                }
+            }else if (selectedWebrelay.model === 'X410'){
+                // Handle SSL IP
+                if(selectedWebrelay.ip.includes('.com') || selectedWebrelay.ip.includes('.app') || selectedWebrelay.ip.includes('.io') || selectedWebrelay.ip.includes('.net')){
+                     let endpoint = `https://${selectedWebrelay.ip}:${selectedWebrelay.port}/customState.json?${selectedRelay.relay_id}=${selectedRelayPosition}`
+                     setAllValues( prevValues => {
+                         return { ...prevValues,triggerEndpoint: endpoint}
+                         })
+                }else{
+                     let endpoint = `http://${selectedWebrelay.ip}:${selectedWebrelay.port}/customState.json?${selectedRelay.relay_id}=${selectedRelayPosition}`
+                     setAllValues( prevValues => {
+                         return { ...prevValues,triggerEndpoint: endpoint}
+                         })
+                }
+            }
        }
     }, [selectedRelay, selectedWebrelay, selectedRelayPosition])
 

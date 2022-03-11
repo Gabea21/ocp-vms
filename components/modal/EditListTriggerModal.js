@@ -8,7 +8,7 @@ import { Router, useRouter } from 'next/router';
 
 
 
-export default function KioskControlModal(props) {
+export default function EditListTriggerModal(props) {
     const { open,setOpen,currentTriggerId, list } = props;
     const [triggers, setTriggers] = useState([]);
     const router = useRouter()
@@ -127,7 +127,7 @@ export default function KioskControlModal(props) {
                             </div>
                         </div>
 
-                        <button onClick={(e) => handleUpdateTrigger(e)} className='bg-blue-500 px-4 py-2 mt-8 w-full rounded text-black font-extrabold'>
+                        <button onClick={(e) => handleUpdateTrigger(e)} className='bg-blue-500 px-4 py-2 mt-8 w-full rounded text-white font-bold'>
                             Update Trigger
                         </button>
                 

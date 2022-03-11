@@ -55,12 +55,12 @@ export default function ManageLprListTable(props) {
                     >
                         Type
                     </th>
-                    <th
+                    {/* <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                         Group
-                    </th>
+                    </th> */}
                     <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -105,9 +105,9 @@ export default function ManageLprListTable(props) {
                         </div>
                         {/* <div className="text-sm text-gray-500">{list.department}</div> */}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        {/* <td className="px-6 py-4 whitespace-nowrap">
                         {list.group_id !== '' ? <div className="text-sm text-gray-900">{list.group_id}</div> : 'N/A'}
-                        </td>
+                        </td> */}
                         <td className="px-6 py-4 whitespace-nowrap">
                         <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                            {filteredTrig?.name}

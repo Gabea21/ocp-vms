@@ -1,12 +1,12 @@
 import { useState } from "react";
-import AddWebRelayModal from "../modal/AddWebRelayModal";
+import AddWebRelaySideModal from "../modal/AddWebRelaySideModal";
 
 export default function ManageWebRelayToolbar(props) {
     const [showAddItem, setShowAddItem] = useState(false);
 
     return (
         <div className="sm:flex sm:flex-row  md:items-center md:justify-between bg-black px-2 py-3 lg:px-8">
-            <AddWebRelayModal open={showAddItem} setOpen={setShowAddItem} />
+            <AddWebRelaySideModal open={showAddItem} setOpen={setShowAddItem} />
         <div className="flex-1 min-w-0">
             <h2 className="text-2xl font-bold leading-7 text-white sm:text-3xl sm:truncate">Manage Doors</h2>
         </div>

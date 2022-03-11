@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 	switch (method) {
 		case 'GET':
 			const {
-				query: { id},
+				query: { id, page},
 				method
 			} = req;
 			try {
@@ -30,10 +30,19 @@ export default async function handler(req, res) {
 					); 
 					return res.status(200).json({ success: true, camera: camera });
 				}else{
-					const cameras = await Camera.find(
-						{}
-					); 
-					return res.status(200).json({ success: true, cameras: cameras });
+					const PAGE_SIZE = 10;
+					const page = parseInt(req.query.page || "0");
+					const total = await Camera.countDocuments({});
+					const cameras = await Camera.find({})
+					  .limit(PAGE_SIZE)
+					  .skip(PAGE_SIZE * page);
+					return res.status(200).json({
+						success: true,
+						totalPages: Math.ceil(total / PAGE_SIZE),
+						cameras: cameras,
+					});
+					
+					
 				}
 			} catch (error) {
 				res.status(400).json({ success: false });

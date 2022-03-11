@@ -48,17 +48,17 @@ export default function AdminLayout({ children, ...props }) {
     const [navigation, setNavigation] = useState([
       { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
       { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras/main') ? true : false },
-      { name: 'Access Control', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false}
+      { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false}
     ])
    
     const mainNavigation = [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
       { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras') ? true : false },
-      { name: 'Access Control', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false} 
+      { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false} 
     ]
     const navigationItemsLists= [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
-      { name: 'Access Control', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/main') ? true : false },
+      { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/main') ? true : false },
      { name: 'Manage Lists', href: '/app/lists/manage', icon: ViewListIcon, current: router.pathname.includes('/app/lists/manage') ? true : false } ,
     ]
 
