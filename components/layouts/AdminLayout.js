@@ -22,7 +22,7 @@ import {
   MapIcon
 } from '@heroicons/react/outline'
 import { SearchIcon, CogIcon } from '@heroicons/react/solid'
-import {  MdDevicesOther } from "react-icons/md"
+import {  MdDevicesOther, MdGarage } from "react-icons/md"
 import {GrMapLocation} from "react-icons/gr"
 import Image from 'next/image';
 import AppNavTop from '../AppNavTop';
@@ -54,11 +54,11 @@ export default function AdminLayout({ children, ...props }) {
     const mainNavigation = [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
       { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras') ? true : false },
-      { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false} 
+      { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/') ? true : false} 
     ]
     const navigationItemsLists= [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
-      { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/main') ? true : false },
+      { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/main') ? true : false },
       { name: 'Search Lists', href: '/app/lists/search', icon: SearchIcon, current: router.pathname.includes('/app/lists/search') ? true : false } ,
     ]
 

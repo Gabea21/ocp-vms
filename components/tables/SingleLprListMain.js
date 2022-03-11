@@ -22,7 +22,7 @@ export default function SingleLprListMain(props) {
                                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                              <div className="flex flex-col items-center">
-                                  <span className="mb-4"> {list.title}</span>
+                                  <span className="mb-4 text-black font-bold text-xl"> {list.title}</span>
 
                                 {list.type === 'whitelist' ?
                                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
