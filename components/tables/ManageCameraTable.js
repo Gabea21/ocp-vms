@@ -64,24 +64,24 @@ export default function ManageCameraTable(props) {
     }
  
 
-    useEffect(() => {
-        const fetchCameras = async () => {
-            const res = await CameraService.getAllCamera()
-            if(res.data.success){
-                const resultArray = async () => {
-                    const resArr = await Promise.all(res.data.cameras.map(async (cam) => getCamPreview(cam)));
-                    return resArr
-                }  
-                resultArray().then((result) => {
-                    console.log(result)
-                    setCamPreviews(result)
-                    setLoadedCameras(res.data.cameras)
+    // useEffect(() => {
+    //     const fetchCameras = async () => {
+    //         const res = await CameraService.getAllCamera()
+    //         if(res.data.success){
+    //             const resultArray = async () => {
+    //                 const resArr = await Promise.all(res.data.cameras.map(async (cam) => getCamPreview(cam)));
+    //                 return resArr
+    //             }  
+    //             resultArray().then((result) => {
+    //                 console.log(result)
+    //                 setCamPreviews(result)
+    //                 setLoadedCameras(res.data.cameras)
 
-                } )
-            }
-        }
-        fetchCameras()
-    }, [])
+    //             } )
+    //         }
+    //     }
+    //     fetchCameras()
+    // }, [])
  
 
     if(!loadedCameras.length > 0) {
@@ -213,7 +213,7 @@ export default function ManageCameraTable(props) {
                                 Next
                                 </a>
                             </div>
-                             <div className="bg-white py-[1.25rem]  flex flex-row justify-between items-center" >
+                             <div className="bg-white  flex flex-row justify-between items-center" >
                                 {pages.map((pageIndex) => (
                                     <button key={pageIndex} onClick={() => setPageNumber(pageIndex)} className={pageIndex === pageNumber ? "m-2 p-2 rounded bg-gray-200 shadow-lg shadow-blue-600 px-2 border-4 border-blue-800 w-10 h-10 flex flex-col justify-center items-center" : "p-2 rounded bg-gray-200 shadow-lg px-2  w-10 h-10 flex flex-col justify-center items-center"}>
                                     {pageIndex + 1}

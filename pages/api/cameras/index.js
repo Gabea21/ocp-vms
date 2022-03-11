@@ -41,8 +41,6 @@ export default async function handler(req, res) {
 						totalPages: Math.ceil(total / PAGE_SIZE),
 						cameras: cameras,
 					});
-					
-					
 				}
 			} catch (error) {
 				res.status(400).json({ success: false });

@@ -70,11 +70,11 @@ export default function AdminLayout({ children, ...props }) {
       // { name: 'All Cameras', href:  '/app/cameras/manage', icon: ViewListIcon, current: router.pathname === '/app/cameras/manage' ? true :  false },
     ]
     const [navAdmin, setNavAdmin] = useState([
+      {name: 'Locations', href:'/app/location', icon: GrMapLocation , current: router.pathname === ('/app/location') ? true : false},
       { name: 'Device Hub', href: '/app/devices', icon:  MdDevicesOther, current: router.pathname.includes('/app/devices') ? true : false },
-      { name: 'Camera Walls', href: '/app/manage/wall', icon:  ViewGridAddIcon, current: router.pathname.includes('/app/manage/wall') ? true : false },
-      { name: 'Users', href: '/app/users', icon: UsersIcon, current: router.pathname === ('/app/users' )? true : false },
       { name: 'Triggers', href: '/app/triggers', icon: CogIcon, current: router.pathname === ('/app/triggers') ? true : false},
-      {name: 'Locations', href:'/app/location', icon: GrMapLocation , current: router.pathname === ('/app/location') ? true : false}
+      { name: 'Users', href: '/app/users', icon: UsersIcon, current: router.pathname === ('/app/users' )? true : false },
+      { name: 'Camera Walls', href: '/app/manage/wall', icon:  ViewGridAddIcon, current: router.pathname.includes('/app/manage/wall') ? true : false },
     ])
     const userNavigation = [
       // { name: 'Your Profile', href: '/app/profile', },

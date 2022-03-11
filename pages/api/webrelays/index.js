@@ -33,9 +33,19 @@ export default async function handler(req, res) {
                             const webrelays = await WebRelay.find({location: location_id}).sort({ createdAt: -1 });
                             return res.status(200).json({ success: true, webrelays: webrelays });
                         }else{
-                            console.log('Get  All WebRelays')
-                            const webrelays = await WebRelay.find({}).sort({ createdAt: -1 });
-                            return res.status(200).json({ success: true, webrelays: webrelays });
+                           
+                            const PAGE_SIZE = 10;
+                            const page = parseInt(req.query.page || "0");
+                            const total = await WebRelay.countDocuments({});
+                            const webrelays = await  WebRelay.find({}).sort({ createdAt: -1 })
+                            .limit(PAGE_SIZE)
+                            .skip(PAGE_SIZE * page);
+                            
+                            return res.status(200).json({
+                                success: true,
+                                totalPages: Math.ceil(total / PAGE_SIZE),
+                                webrelays: webrelays,
+                            });
                         }
                     }else{
                         return res.status(400).json({ success: false, message: 'Retrieval type not specified' });

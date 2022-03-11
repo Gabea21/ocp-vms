@@ -183,7 +183,7 @@ export default function CameraListTable(props) {
                                     Next
                                     </a>
                                 </div>
-                                <div className="bg-white py-[1.25rem]  flex flex-row justify-between items-center" >
+                                <div className="bg-white   flex flex-row justify-between items-center" >
                                 {pages.map((pageIndex) => (
                                     <button key={pageIndex} onClick={() => setPageNumber(pageIndex)} className={pageIndex === pageNumber ? "m-2 p-2 rounded bg-gray-200 shadow-lg shadow-blue-600 px-2 border-4 border-blue-800 w-10 h-10 flex flex-col justify-center items-center" : "p-2 rounded bg-gray-200 shadow-lg px-2  w-10 h-10 flex flex-col justify-center items-center"}>
                                     {pageIndex + 1}
