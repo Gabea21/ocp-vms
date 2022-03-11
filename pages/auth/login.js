@@ -7,13 +7,16 @@ import { useSession } from 'next-auth/react';
 
 
 export default function Login() {
-  const {data: session} = useSession()
-  console.log(session)
-	const router = useRouter();
-  // console.log(session)
-  // if(session.users.isAuthenticated){
-  //   router.push('/')
-  // }
+  const {data: session, status} = useSession()
+  const router = useRouter();
+  
+  useEffect(() => {
+    if( status === 'authenticated' && router ){
+      const callbackUrl = router.query.callbackUrl;
+      router.push(callbackUrl)
+    }
+
+  }, [status,router])
   return (
     <div className="w-full">
       <LoginForm /> 

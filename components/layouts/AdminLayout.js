@@ -248,7 +248,7 @@ export default function AdminLayout({ children, ...props }) {
                   </a>
                 </Link>
                 ))}
-                {auth.user.userType === 0 &&
+                {auth?.user?.userType === 0 &&
                   <>
                   <hr/>
                     {navAdmin.map((item) => (
