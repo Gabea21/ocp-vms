@@ -59,7 +59,7 @@ export default function AdminLayout({ children, ...props }) {
     const navigationItemsLists= [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/main') ? true : false },
-     { name: 'Manage Lists', href: '/app/lists/manage', icon: ViewListIcon, current: router.pathname.includes('/app/lists/manage') ? true : false } ,
+      { name: 'Search Lists', href: '/app/lists/search', icon: SearchIcon, current: router.pathname.includes('/app/lists/search') ? true : false } ,
     ]
 
     const navigationItemsCamera = [
@@ -73,6 +73,7 @@ export default function AdminLayout({ children, ...props }) {
       {name: 'Locations', href:'/app/location', icon: GrMapLocation , current: router.pathname === ('/app/location') ? true : false},
       { name: 'Device Hub', href: '/app/devices', icon:  MdDevicesOther, current: router.pathname.includes('/app/devices') ? true : false },
       { name: 'Triggers', href: '/app/triggers', icon: CogIcon, current: router.pathname === ('/app/triggers') ? true : false},
+      { name: 'Manage Lists', href: '/app/lists/manage', icon: ViewListIcon, current: router.pathname.includes('/app/lists/manage') ? true : false } ,
       { name: 'Users', href: '/app/users', icon: UsersIcon, current: router.pathname === ('/app/users' )? true : false },
       { name: 'Camera Walls', href: '/app/manage/wall', icon:  ViewGridAddIcon, current: router.pathname.includes('/app/manage/wall') ? true : false },
     ])
