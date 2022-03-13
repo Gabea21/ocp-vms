@@ -8,7 +8,7 @@ import {
   CalendarIcon,
   ChartBarIcon,
   FolderIcon,
-  HomeIcon,
+  OfficeBuildingIcon,
   InboxIcon,
   MenuAlt2Icon,
   UsersIcon,
@@ -46,26 +46,27 @@ export default function AdminLayout({ children, ...props }) {
       }
 
     const [navigation, setNavigation] = useState([
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
       { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras/main') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false}
     ])
    
     const mainNavigation = [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
       { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/') ? true : false} 
     ]
     const navigationItemsLists= [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/main') ? true : false },
       { name: 'Search Lists', href: '/app/lists/search', icon: SearchIcon, current: router.pathname.includes('/app/lists/search') ? true : false } ,
     ]
 
     const navigationItemsCamera = [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: HomeIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
       { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current: router.pathname.includes( '/app/cameras/main' ) ? true : false },
       { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname.includes(  '/app/cameras/grid/?axis=3') ? true : false },
+      
       // { name: '2x2 Grid', href: '/app/cameras/grid?axis=2', icon: ViewGridAddIcon, current: router.pathname === '/app/cameras/grid?axis=2' ? true : false },
       // { name: 'All Cameras', href:  '/app/cameras/manage', icon: ViewListIcon, current: router.pathname === '/app/cameras/manage' ? true :  false },
     ]
@@ -161,7 +162,7 @@ export default function AdminLayout({ children, ...props }) {
                             item.current
                               ? 'bg-gray-200 text-gray-900'
                               : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                            'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                            'group flex items-center px-2 py-2 text-lg font-medium rounded-md'
                           )}
                         >
                           <item.icon

@@ -272,11 +272,16 @@ export default function CamDvrCustom(props) {
         })
       }
 
+      const [currentUrlIndex, setCurrentUrlIndex] = useState(0)
+
     const handleEnded = () => {
         console.log('onEnded')
-        setAllValues( prevValues => {
-          return { ...prevValues, playing: allValues.loop}
-        })
+        // setCurrentUrlIndex(
+        //     prevUrlIndex => (prevUrlIndex + 1) % vidSrcArr.length
+        //   )
+        // // setAllValues( prevValues => {
+        // //   return { ...prevValues, playing: allValues.loop}
+        // // })
     }
 
     console.log(videoScreenshot)
@@ -302,12 +307,12 @@ export default function CamDvrCustom(props) {
                 <div className="flex flex-row justify-between text-lg text-white rounded-t-lg  w-full bg-black p-1 ">
                     <div className="flex flex-row  ">
                             <span className="font-bold mr-2 ">Start:</span> 
-                            <span> {dateformat(new Date(vidSrcArr[0]?.start + 'z'), ' hh:MM:ss TT' ) }</span>
+                            <span> {dateformat(new Date(vidSrcArr[currentUrlIndex]?.start + 'z'), ' hh:MM:ss TT' ) }</span>
                     </div>
 
                     <div  className="flex flex-row  ">
                             <span className="font-bold mr-2 ">End:</span> 
-                            <span> { dateformat(new Date(vidSrcArr[0]?.end + 'z'), ' hh:MM:ss TT' ) }</span>
+                            <span> { dateformat(new Date(vidSrcArr[currentUrlIndex]?.end + 'z'), ' hh:MM:ss TT' ) }</span>
                     </div>
                 </div>
                     }
@@ -319,7 +324,7 @@ export default function CamDvrCustom(props) {
                         controls={true} 
                         playing={loadedLiveUrls ? true : false}  
                         // url={selectedDay === null ? watch.hls+'.m3u8' : vidSrcArr} 
-                        url={vidSrcArr[0]?.src} 
+                        url={vidSrcArr[currentUrlIndex]?.src} 
                         onBuffer={() => {console.log('Buffering')}}
                         onBufferEnd={() => {console.log('Buffering Ended')}}
                         onError={(e) => { console.log('error',e)}}

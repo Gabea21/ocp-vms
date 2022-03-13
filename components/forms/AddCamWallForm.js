@@ -89,10 +89,10 @@ export default function AddCamWallForm(props) {
                 {cameras.map((cam) => {
                     return (
                         <div key={cam._id} className={ camsChecked.some((camera) => camera._id === cam._id)  ? " rounded bg-gray-200 py-2 px-2 text-blue-500 my-4 flex flex-col w-full" : "rounded bg-gray-100 py-2 px-2 my-4 flex flex-col w-full" }>
-                        <div className="flex flex-row">
-                            <input type="checkbox"  onChange={() => handleCheck(cam)} />
-                            <span className="font-bold text-xl px-2 ml-1">{cam.name}</span>
-                        </div>
+                            <div className="flex flex-row cursor-pointer"   >
+                                <input type="checkbox" className="cursor-pointer"  onChange={() => handleCheck(cam)} />
+                                <span className="font-bold text-xl px-2 ml-1">{cam.name}</span>
+                            </div>
                         <span className="font-bold text-xl px-2 ml-1 flex flex-row items-center"> <GoLocation  className="h-10 mr-1"/>{cam.location}</span>
                         </div>
                     )
