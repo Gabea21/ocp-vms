@@ -8,6 +8,7 @@ import CamAntToolbar from './CamAntToolbar';
 import CamFrame from './CamFrame';
 import{GiBackwardTime} from 'react-icons/gi';
 import CameraDvrModal from "../modal/CameraDvrModal";
+import CamDvrSideModal from '../modal/CamDvrSideModal';
 
 export default function CamAnt(props) {
     const {streamId, index, camera} = props;
@@ -155,7 +156,7 @@ export default function CamAnt(props) {
     }
     return (
         <div className=" bg-black max-h-[530px] p-1 ">
-        {showDvrModal && <CameraDvrModal camera={camera} open={showDvrModal} setOpen={setShowDvrModal}/>}
+        {showDvrModal && <CamDvrSideModal camera={camera} open={showDvrModal} setOpen={setShowDvrModal}/>}
            <div className="flex flex-row justify-center inset-x-0 top-0">
                 <div className="flex flex-row justify-between px-[0.55rem] py-[0.2rem]  w-full  bg-black ">
                     <div className="inline-flex items-center px-1 border-indigo-300 border-[1px] rounded-md text-sm font-medium  text-white">
