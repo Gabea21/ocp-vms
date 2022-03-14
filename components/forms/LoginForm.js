@@ -19,15 +19,21 @@ export default function LoginForm() {
     e.preventDefault()
 		if (!session) {
 			try {
-				const result = await signIn("credentials", {
+        const result = await signIn("credentials", {
 					redirect: false,
 					email: loginEmail,
 					password: loginPassword,
         });
-        console.log('login result', result)
 				if (!result.error) {
 					router.replace("/app/cameras/main");
-				}
+         } else{
+           console.log(result.error)
+          if(result.error === 'Password doesnt match'){
+            alert("Password doesnt match")
+          }else if(result.error === 'No user found with the email'){
+            alert('No user found with the email')
+          }
+        }
 			} catch (error) {
 				console.log(error,'eror');
 			}

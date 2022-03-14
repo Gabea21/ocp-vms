@@ -89,7 +89,7 @@ export default function CamDvrCustom(props) {
     }
     // Set Dates of Recordings
     useEffect(() => {
-       if(calenderBounds){
+       if(calenderBounds?.length){
         const start = new Date(calenderBounds[0]+'z') 
         const end = new Date(calenderBounds[1] +'z')    
          const daysBetween = datediff(parseDate(dateformat(start,"mm-dd-yyyy")), parseDate(dateformat(end,"mm-dd-yyyy"))) 
@@ -284,8 +284,7 @@ export default function CamDvrCustom(props) {
         // // })
     }
 
-    console.log(videoScreenshot)
-    if(!loadedBounds ) return <h1>loading...</h1>
+    if(!loadedBounds ) return <h1>Searching For Recordings...</h1>
     return (
         <>
         <div>

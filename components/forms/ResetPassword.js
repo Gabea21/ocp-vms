@@ -34,8 +34,8 @@ export default function ResetPassword({ hash }) {
 					<div className=" py-4 bg-white rounded-3xl shadow-2xl">
 						<img
 							className="mx-auto h-28 w-auto"
-							src={'/assets/cocoon-logo-main.jpg'}
-							alt="Cocoon Project"
+							src={'/assets/comp-logo.png'}
+							alt="Company Logo"
 						/>
 					</div>
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

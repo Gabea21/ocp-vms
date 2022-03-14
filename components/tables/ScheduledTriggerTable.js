@@ -109,6 +109,7 @@ export default function ScheduledTriggerTable(props) {
                                 return val
                             }}).map((trigger, triggerIdx) => {
                            let filteredTrig = triggersData.dbSchedules.filter((dbTrigger ) => dbTrigger.cron_id === trigger.cron_job_id)[0]
+                           console.log(webrelays)
                            let filteredWebrelay = webrelays.filter((webR) => webR._id === filteredTrig?.webrelay_id  )[0]
                            let filteredRelay = filteredWebrelay?.relays.filter((relay) => relay._id === filteredTrig?.relay_id  )[0]
                             let relayPosition =  getRelayPosition(trigger.url, filteredRelay?.relay_id)
