@@ -72,7 +72,7 @@ export default function LprTriggerTable(props) {
                         <div className="sm:flex w-full">
                             
                             <p className="flex items-center text-sm text-gray-500 sm:ml-2 md:ml-2 lg:ml-2">
-                                <CogIcon onClick={() => setEditListTrigger(true)} className="flex-shrink-0 mr-1.5 h-8 w-8 text-black" aria-hidden="true" />
+                                <CogIcon onClick={() => setEditListTrigger(true)} className="flex-shrink-0 mr-1.5 h-8 w-8 text-black hover:text-blue-400" aria-hidden="true" />
                                 {list.type === 'whitelist' ?
                                 <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 {list.type.toUpperCase()}
