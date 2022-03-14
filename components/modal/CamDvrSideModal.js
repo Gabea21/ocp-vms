@@ -28,7 +28,7 @@ export default function CamDvrSideModal(props) {
                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                   <div className="px-4 sm:px-6">
                     <div className="flex items-start justify-between  mt-16" >
-                      <Dialog.Title className="text-lg font-medium text-gray-900">Camera Recordings</Dialog.Title>
+                      <Dialog.Title className="text-3xl font-medium text-gray-900">Camera Recordings</Dialog.Title>
                       <div className="ml-3 h-7 flex items-center">
                         <button
                           type="button"
