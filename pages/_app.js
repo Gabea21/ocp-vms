@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps:{session, ...pageProps} }) {
 					</KioskLayout>
 			 	 </>
 
-			):router.pathname.startsWith('/walls') ?(
+			):router.pathname.startsWith('/walls') || router.pathname.startsWith('/sharedcamera') ?(
 				<>
 					
 					<Component {...pageProps} />

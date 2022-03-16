@@ -16,8 +16,8 @@ export default function ManageLocationsToolbar(props) {
     }, [])
     console.log(selectedWall.name)
     return (
-        <div className="w-full flex flex-row">
-                <div className="m-4 max-w-[300px]">
+        <div className="w-full flex flex-col sm:flex-row">
+                <div className="m-2 max-w-[300px]">
                         <label htmlFor="wall" className="block text-sm font-medium text-gray-700">
                         Wall Filter
                         </label>
@@ -37,7 +37,7 @@ export default function ManageLocationsToolbar(props) {
                     </select>
                     </div>   
                 </div>    
-                <div className="m-4 max-w-[300px]">
+                <div className="m-2 max-w-[300px]">
                         <label htmlFor="location" className="block text-sm font-medium text-gray-700">
                         Location Filter
                         </label>
@@ -59,7 +59,7 @@ export default function ManageLocationsToolbar(props) {
                     {selectedLocation !== "" && <a className="ml-2 text-blue-400 cursor-pointer" onClick={() => setSelectedLocation('')}>Clear</a>}
                     </div>   
                 </div>    
-                <div className="m-4 max-w-[300px]">
+                <div className="m-2 hidden sm:block max-w-[300px]">
                         <label htmlFor="layout" className="block text-sm font-medium text-gray-700">
                         Layout
                         </label>

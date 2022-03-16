@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const shareToken = new Schema({
     
     expiration: {
-	  type: String,
+	  type: Date,
 		
     },
    camera_id: {
@@ -12,8 +12,7 @@ const shareToken = new Schema({
     },
     user_id:{
         type: String,
-    }
-    
+    }, 
 	
 },
 {

@@ -14,11 +14,11 @@ export default async function handler(req, res) {
 	
 	await dbConnect();
 	switch (method) {
-		case 'GET' /* Get a model by its ID */:
+		case 'GET':       /////////NOT IN USE....//////////////////////
+
 			try {
 				console.log('Share Camera:',id)
                 const camera = await Camera.findOne({_id: id});
-        
                 // Add Expiration and Share Token
 				const hash = new ShareToken({ camera_id: camera._id });
 				await hash.save();
@@ -26,6 +26,20 @@ export default async function handler(req, res) {
 				
 			} catch (error) {
 				res.status(400).json({ success: false });
+			}
+			break;
+		case 'POST' /* Get a model by its ID */:
+			try {
+				const { expireTime,camera, secondsFromNow  } = req.body;
+				console.log(expireTime, secondsFromNow )
+				// Add Expiration and Share Token
+				const hash = new ShareToken({ camera_id: camera._id , expiration: expireTime });
+				await hash.save();
+				res.status(200).json({ success: true, hash_id: hash._id });
+				
+			} catch (error) {
+				res.status(400).json({ success: false });
+				console.log(error)
 			}
 			break;
 		default:

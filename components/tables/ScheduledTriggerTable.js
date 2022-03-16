@@ -49,7 +49,9 @@ export default function ScheduledTriggerTable(props) {
     }
 
     const url ='/api/triggers/scheduled/';
-    const { data : triggersData,error } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true , refreshInterval: 2000});
+    // const { data : triggersData,error } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true , refreshInterval: 2000});
+    const { data : triggersData,error } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true }); // Removed Refresh for CRON API
+
     if (error) return <div>failed to load</div>
     if (!triggersData) return <div>loading...</div>
 
@@ -129,7 +131,7 @@ export default function ScheduledTriggerTable(props) {
                                 }
                                 <td className="px-6 py-4 whitespace-nowrap text-lg font-medium text-gray-900">{trigger.cron_job_name}</td>
                                 <td className="px-3 py-4 whitespace-nowrap text-lg text-black font-bold  ">{cronstrue.toString(trigger.cron_expression)}</td>
-                                <td className="px-3 py-4 whitespace-nowrap text-lg text-gray-500">{filteredWebrelay?.location} {filteredRelay?.name}
+                                <td className="px-3 py-4 whitespace-nowrap text-lg text-gray-500">{filteredWebrelay?.name} {filteredRelay?.name}
                                  -{Number(relayPosition) === 1 ? 
                                         <span className="inline-flex items-center px-3 py-0.5 rounded-full text-lg font-medium bg-green-100 text-green-800">
                                        Open

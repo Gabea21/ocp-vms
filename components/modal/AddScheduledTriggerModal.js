@@ -138,7 +138,7 @@ export default function AddScheduledTriggerModal(props) {
         }
         getWebRelays()
      }, [])
-    //Handle Trigger Endpoint (Only OLD_QUAD Implemented)
+    //Handle Trigger Endpoint ( OLD_QUAD, X401, X410 : Implemented)
     useEffect(() => {
        if(selectedWebrelay && selectedRelay && selectedRelayPosition){
            // Handle WebRelay Model
@@ -201,8 +201,7 @@ export default function AddScheduledTriggerModal(props) {
             }else{
                 // At Specific HH:mm
                 setCron(cronTime.every(1).days(Number(hour),Number(minutes)))
-            }
-            
+            }        
         }else if(selectedScheduleType == 'daily'){
             if(dailyRunType === 'every'){
                 // Every X hours 
@@ -213,10 +212,8 @@ export default function AddScheduledTriggerModal(props) {
             }else{
                 // At Specific HH:mm WEEKEND
                 setCron(cronTime.everyWeekendAt( Number(hour), Number(minutes) ))
-            }
-            
-        }else if(selectedScheduleType == 'weekly'){
-           
+            }           
+        }else if(selectedScheduleType == 'weekly'){    
             // At Specific HH:mm WEEKEND
             setCron(cronTime.onSpecificDaysAt( selectedDays , Number(hour), Number(minutes) ))
         

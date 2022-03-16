@@ -26,11 +26,16 @@ const createCamera = (data) => {
 //delete Camera
 const deleteCamera = (id) => http.delete(`/cameras/${id}`);
 
-
+const createShareUrl = (expireTime, camera, secondsFromNow ) => http.post('/cameras/share',{
+  expireTime,
+  camera,
+  secondsFromNow 
+})
 
 export default {
   getAllCamera,
   getCamera,
   createCamera,
   deleteCamera,
+  createShareUrl
 };

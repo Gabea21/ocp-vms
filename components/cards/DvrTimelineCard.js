@@ -42,6 +42,7 @@ export default function DvrTimelineCard(props) {
 
      // @React-Horizontal-Scroll (DVR scroll)
      const isItemSelected = (id) => !!selectedInterval.find((el) => el === id);
+     
      // Handle Dvr Interval Clicked
      const handleClick = (id) =>
      ({ getItemById, scrollToItem }) => {

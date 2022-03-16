@@ -10,11 +10,11 @@ export default function CamDvrSideModal(props) {
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 overflow-hidden" onClose={setOpen}>
+      <Dialog as="div" className="fixed inset-0 overflow-hidden z-[10000]" onClose={setOpen}>
         <div className="absolute inset-0 overflow-hidden">
           <Dialog.Overlay className="absolute inset-0" />
 
-          <div className="fixed inset-y-0 right-0  max-w-full flex sm:pl-16 z-[100000000]">
+          <div className="fixed inset-y-0 right-0  max-w-full flex sm:pl-16 ">
             <Transition.Child
               as={Fragment}
               enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -27,7 +27,7 @@ export default function CamDvrSideModal(props) {
               <div className="w-screen max-w-2xl">
                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                   <div className="px-4 sm:px-6">
-                    <div className="flex items-start justify-between  mt-16" >
+                    <div className="flex items-start justify-between " >
                       <Dialog.Title className="text-3xl font-medium text-gray-900">Camera Recordings</Dialog.Title>
                       <div className="ml-3 h-7 flex items-center">
                         <button
@@ -36,7 +36,7 @@ export default function CamDvrSideModal(props) {
                           onClick={() => setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>
-                          <XIcon className="h-6 w-6" aria-hidden="true" />
+                          <XIcon className="h-6 w-6 " aria-hidden="true" />
                         </button>
                       </div>
                     </div>
@@ -44,7 +44,7 @@ export default function CamDvrSideModal(props) {
                   <div className="mt-6 relative flex-1 px-4 sm:px-6">
                     {/* Start Content */}
 
-                    <div className="mt-3 text-center sm:mt-5 ">
+                    <div className=" text-center sm:mt-2 ">
                         <div className="mt-2 max-w-[850px]">
                             <CamDvrCustom camera={camera} />
                         </div>
