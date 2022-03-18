@@ -42,30 +42,9 @@ export default function Main(props) {
     return (
       <div className="bg-white shadow sm:rounded-lg lg:min-h-[800px]">
         <div className="bg-gray-100 inset-x-0 top-0 px-4 py-5 sm:px-6">
-            <div>
-              <div className="m-4 max-w-[300px]">
-                <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-                Location Filter
-                </label>
-              <div className="flex flex-row items-center">
-                <select
-                        id="location"
-                        name="location"
-                        onChange={(e) => setSelectedLocation(e.target.value)}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        // defaultValue="none"
-                        value={selectedLocation}
-                    >
-                        <option value="">None</option>
-                        {locations.map((location) => (
-                            <option key={location._id}>{location.name}</option>
-                        ))}
-                    
-                </select>
-                  {selectedLocation !== "" && <a className="ml-2 text-blue-400 cursor-pointer" onClick={() => setSelectedLocation('')}>Clear</a>}
-              </div>
-            </div>
-             <div>
+           
+        <div className="flex flex-col md:flex-row md:items-center">
+          
               <div className="m-4 max-w-[300px]">
                   <label htmlFor="searchDevices" className="block text-xl font-medium text-gray-700">
                   Search Cameras
@@ -81,9 +60,31 @@ export default function Main(props) {
                       />
                   </div>
               </div>
-          </div>  
+              <div className="m-4 max-w-[300px]">
+                  <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+                  Location Filter
+                  </label>
+                  <div className="flex flex-row items-center">
+                    <select
+                            id="location"
+                            name="location"
+                            onChange={(e) => setSelectedLocation(e.target.value)}
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            // defaultValue="none"
+                            value={selectedLocation}
+                        >
+                            <option value="">None</option>
+                            {locations.map((location) => (
+                                <option key={location._id}>{location.name}</option>
+                            ))}
+                        
+                    </select>
+                      {selectedLocation !== "" && <a className="ml-2 text-blue-400 cursor-pointer" onClick={() => setSelectedLocation('')}>Clear</a>}
+                  </div>
+            </div>
+            </div>
           <ManageCameraTable  locationFilter={selectedLocation} searchItem={searchItem}/>
-        </div>
+       
       </div>
     </div>
     )
