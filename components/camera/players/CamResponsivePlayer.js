@@ -5,7 +5,7 @@ import {HiOutlineStatusOnline, HiStatusOffline} from 'react-icons/hi';
 import WebRTCAdaptor from '../../lib/webrtc_adaptor';
 import CamAntToolbar from '../CamAntToolbar';
 
-export default function CamSinglePlayer(props) {
+export default function CamResponsivePlayer(props) {
     const {index, camera, maxHeight} = props;
     const videoRef = useRef();
     /// Media Server
@@ -32,9 +32,19 @@ export default function CamSinglePlayer(props) {
     const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
-       setWebRTCAdaptor(initiateWebrtc())
-        setIsShow(true)
-    }, [])
+       if(webRTCAdaptor){
+            webRTCAdaptor.stop(streamName)
+            onStartPlaying(camera.antStreamId)
+
+            setStreamName(camera.antStreamId)
+
+       }
+    }, [camera])
+
+    useEffect(() => {
+        setWebRTCAdaptor(initiateWebrtc())
+         setIsShow(true)
+     }, [])
     
     useEffect(() => {
         // NEED TO IMPLEMENT TO FIX Dismount && Mount
@@ -132,9 +142,10 @@ export default function CamSinglePlayer(props) {
             }
         });
     }
+    console.log(videoRef)
     return (
         <div>
-            <video ref={videoRef} className= {maxHeight ? `w-full max-w-[1000px]  m-auto max-h-[500px]` : "w-full max-w-[1000px]  m-auto"} id={`remoteVideo${props.index}${props.camera?._id}`} autoPlay muted controls playsInline
+            <video ref={videoRef} width="800" className="rounded-lg" id={`remoteVideo${props.index}${props.camera?._id}`} autoPlay muted controls playsInline
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={true} webkitallowfullscreen="true" mozallowfullscreen="true" />       
         </div>

@@ -9,9 +9,11 @@ import captureVideoFrame from "capture-video-frame";
 import { AiFillCamera,  } from "react-icons/ai";
 import { BsBookmark , BsBookmarkFill, BsFillShareFill } from "react-icons/bs";
 import CameraService from '../services/CameraService';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function CamDvrCustom(props) {
     const {camera,  options, onReady  } = props
+    const  auth  = useAuthContext() // MenuContext object.
     const [loadedLiveUrls, setLoadedLiveUrls] = useState(false);
     const [loadedBounds, setLoadedBounds] = useState(false)
     const [calenderBounds, setCalenderBounds] = useState(null);
@@ -405,11 +407,12 @@ export default function CamDvrCustom(props) {
                         <BsBookmark  size={28} /> 
                         <span>Archive</span>
                     </div> */}
-                    <div onClick={() => shareToggle() }   
+                    {auth.user.userType < 2 &&< div onClick={() => shareToggle() }   
                     className="mb-1 p-1 ml-1 cursor-pointer flex flex-row justify-start items-center  border-2 border-gray-300 hover:border-blue-500">
                         <BsFillShareFill  size={28}/> 
                         <span>Share</span>
                     </div>
+                    }
                 </div>
 
                   {/* Archive Options*/} 

@@ -16,9 +16,9 @@ export default function index(props) {
     const [selectedLocation, setSelectedLocation] = useState('');
     const [searchItem, setSearchItem] = useState('');
     const devices = [
-        { name: 'Cameras',type:'camera', href: '?filter=camera', current: selectedDeviceType === 'camera' ? true : false },
-        { name: 'Door Control',type:'webrelay', href: '?filter=webrelay', current: selectedDeviceType === 'webrelay' ? true : false }, //webrelay UI reffered to 
-        { name: 'Kiosks',type:'kiosk', href: '?filter=kiosk', current: selectedDeviceType === 'kiosk' ? true : false  },
+        { name: 'Cameras',type:'camera', href: '/?filter=camera', current: selectedDeviceType === 'camera' ? true : false },
+        { name: 'Door Control',type:'webrelay', href: '/?filter=webrelay', current: selectedDeviceType === 'webrelay' ? true : false }, //webrelay UI reffered to 
+        { name: 'Kiosks',type:'kiosk', href: '/?filter=kiosk', current: selectedDeviceType === 'kiosk' ? true : false  },
     ]
    
     const handleSelectDevice = (e,deviceType) => {
@@ -102,7 +102,7 @@ export default function index(props) {
                                         </svg>
                                         <a
                                             href={device.href}
-                                            className={device.current ?"ml-4 text-xl font-medium text-blue-700 hover:text-gray-700"  :"ml-4 text-xl font-medium text-gray-500 hover:text-gray-700"}
+                                            className={device.current ?"ml-4 text-xl font-medium text-blue-700 "  :"ml-4 text-xl font-medium text-gray-500 hover:text-black"}
                                             aria-current={device.current ? 'page' : undefined}
                                         >
                                             {device.name}  

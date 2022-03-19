@@ -1,91 +1,88 @@
-import { useState, useRef, useEffect } from "react";
-import useSWR from "swr";
-import CamAnt from "../../components/camera/CamAnt";
-import WebRelayControlModal from "../../components/modal/WebRelayControlModal";
-import CamLprPlateCard from "../../components/section/CamLprPlateCard";
-import WebRelayService from "../../components/services/WebRelayService";
-import CamEventTable from "../../components/tables/CamEventTable";
-import IncomingPlateTable from "../../components/tables/IncomingPlateTable";
-const lprCamId = process.env.NEXT_PUBLIC_LPR_CAM_ID // Camera_ID for LPR Camera
-const lprControllerId = process.env.NEXT_PUBLIC_LPR_CONTROLLER_ID // webrelay Controller ID for LPR ID
+import useSWR from 'swr';
+import WebRelayService from '../../components/services/WebRelayService';
+import { useEffect, useState } from 'react';
+import KioskControlCard from '../../components/cards/KioskControlCard';
+import CamResponsivePlayer from '../../components/camera/players/CamResponsivePlayer';
+import ManageCameraTable from '../../components/tables/ManageCameraTable';
+import MainDashCameras from '../../components/tables/MainDashCameras';
+import MainDashWebrelays from '../../components/tables/MainDashWebrelays';
+import WebRelayQuadOldKioskControl from '../../components/section/WebRelayQuadOldKioskControl';
+import WebRelayX410KioskControl from '../../components/section/WebRelayX410KioskControl';
 
 async function fetcherFunc(url){
     const res = await fetch(url);
     return res.json();
     }
 export default function dashboard(props) {
-    const [openAccessControl, setOpenAccessControl] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState('')
     const [searchItem, setSearchItem] = useState('');
-    const [lprWebRelay, setLprWebRelay] = useState([])
-
-    const fetchWebRelay = async () => {
-        try{
-            const res = await WebRelayService.getWebRelay(lprControllerId)
-            setLprWebRelay(res.data.webrelay)
-        }catch(error){
-            console.log('Fetch LPR Door Controller Err', error)
-        }
-
+    const [selectedDevice, setSelectedDevice] = useState('cameras')
+    const [selectedWebrelay, setSelectedWebrelay] = useState(null);
+    const [selectedCamera, setSelectedCamera] = useState(null)
+    const handleSelectDevice = (e) => {
+        setSelectedDevice(e.target.value)
     }
-    useEffect(() => {
-        fetchWebRelay()
-        console.log('fetch webR')
-    }, [])
-    const url =`/api/cameras/${lprCamId}`; 
-    const { data: camData ,error: camLoadError } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true});
-
-    if (camLoadError) return <div>failed to load</div>
-    if (!camData) return <div>loading...</div>
+    console.log(selectedCamera)
+    const url =`/api/cameras`;
+    const { data,error } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true});
+    if (error) return <div>failed to load</div>
+    if (!data) return <div>loading...</div>
+    console.log('Fetched Cameras', data)
     return (
-        <>
-            <div className="bg-white shadow sm:rounded-lg lg:min-h-[800px]">
-                <div className="px-4 py-5 sm:px-6">
-                   <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-evenly">
-                        <div className="bg-gray-200 rounded-2xl shadow-2xl px-3 py-3 max-w-[650px]">
-                           <div className="bg-black p-1 rounded-2xl ">
-                             <CamAnt streamId={camData.camera?.antStreamId} camera={camData.camera} />      
-                           </div>
-                        </div>
-                        <div className="flex flex-col">
-                            <button         
-                                className="inline-flex items-center px-4 py-2 border border-transparent text-lg font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                 onClick={() => setOpenAccessControl(!openAccessControl)}
-                                 >
-                                Manual  Gate Override
-                                </button>
-                         {openAccessControl &&   <WebRelayControlModal open={openAccessControl} setOpen={setOpenAccessControl} webrelay={lprWebRelay} webRelayModel={'Quad_OLD'} />}
-                            <CamLprPlateCard />
-                        </div>
-                   </div>
-                  <div className="mt-4 ">
-                        
-                        <div className="bg-gray-200 rounded-2xl shadow-2xl px-3 py-3 mt-2 " > 
-                            <div className=" rounded-2xl px-2 py-[0.2rem]">
-                                    <div className="flex flex-row justify-start items-center mb-1">
-                                        <label htmlFor="search" className="block text-lg mr-2 font-medium text-black">
-                                        Search Plates
-                                        </label>
-                                        <div className="mt-1 relative flex items-center">
-                                            <input
-                                            type="text"
-                                            name="search"
-                                            id="search"
-                                            onChange={(e) => setSearchItem(e.target.value)}
-                                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
-                                            />
-                                            {/* <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-                                                <kbd className="inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400">
-                                                    ⌘K
-                                                </kbd>
-                                            </div> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            <IncomingPlateTable searchItem={searchItem} />
-                        </div>
-                  </div>
+        <div className="min-h-[100vh] bg-gray-50 rounded">
+            
+           <div className="flex flex-col-reverse sm:flex-row py-4"> 
+                <div className="relative rounded-lg  px-4 flex flex-col items-center justify-center">
+                  <CamResponsivePlayer camera={ selectedCamera ?  selectedCamera : data.cameras[0]  }/> 
+                    
+                
+                    {/* <button className="bg-white bg-opacity-30 rounded-full top-2 left-4 px-1 absolute backdrop-blur-sm">Open Full</button> */}
                 </div>
-            </div>
-        </>
+                <div className="hidden sm:flex sm:flex-col sm:items-center  ">
+                    <span className="text-2xl lg:text-3xl"> Main Control</span>
+                    {selectedWebrelay && selectedWebrelay?.model === 'Quad_OLD' && <WebRelayQuadOldKioskControl webrelay={selectedWebrelay} />}
+                    {selectedWebrelay && (selectedWebrelay?.model === 'X410' || selectedWebrelay?.model === 'X401') && <WebRelayX410KioskControl webrelay={selectedWebrelay} />}
+                </div>
+           </div>
+           <div>
+               <div className="flex flex-col sm:flex-row ">
+                   <div className= "flex flex-col lg:w-[20%] item-center justify-start px-1 shadow-xl">
+                       <button onClick={(e) => handleSelectDevice(e)} 
+                            value="cameras" 
+                            className={selectedDevice === 'cameras' ? 
+                            " font-bold py-[0.6rem] rounded-full bg-black text-white text-xl text-center"
+                            :"font-bold  my-2 py-[0.6rem]  rounded-full bg-gray-300 text-black text-xl text-center"}> 
+                                Cameras
+                        </button>
+                       <button onClick={(e) => handleSelectDevice(e)} 
+                            value="access" 
+                            className={selectedDevice === 'access' ? 
+                                "font-bold py-[0.6rem] rounded-full bg-black text-white text-xl text-center"
+                                :"font-bold my-2 py-[0.6rem]  rounded-full bg-gray-300 text-black text-xl text-center"}> 
+                                Access Control
+                            </button>
+                   </div>
+                   <div className="lg:w-[80%] px-4 ">
+                    <div className="m-4 max-w-[300px] flex flex-row">
+                        <div className="flex flex-row items-center">
+                            <input
+                                type="searchDevices"
+                                name="searchDevices"
+                                id="searchDevices"
+                                onChange={ (e) => setSearchItem(e.target.value) }
+                                className=" mt-1 block w-full shadow-lg pl-3 pr-10 py-2 text-base focus:ring-blue-500 focus:border-blue-500 sm:text-xl border-gray-300 rounded-md"
+                                placeholder="Search Devices"
+                            />
+                        </div>
+                    </div>
+                    {selectedDevice === 'cameras' && <MainDashCameras  locationFilter={selectedLocation} searchItem={searchItem} setMainCamera={setSelectedCamera} mainCamera={selectedCamera ? selectedCamera : data.cameras[0]}/>}
+                    {selectedDevice === 'access' && <MainDashWebrelays  locationFilter={selectedLocation} searchItem={searchItem} setMainWebrelay={setSelectedWebrelay} mainWebrelay={selectedWebrelay}/>}
+
+                   </div>
+
+               </div>
+           </div>
+            
+        </div>
     )
 }

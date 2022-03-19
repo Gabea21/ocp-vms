@@ -47,13 +47,13 @@ export default function AdminLayout({ children, ...props }) {
 
     const [navigation, setNavigation] = useState([
       { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
-      { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras/main') ? true : false },
+      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname.includes(  '/app/cameras/grid/?axis=3') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false}
     ])
    
     const mainNavigation = [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
-      { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current:router.pathname.includes('/app/cameras') ? true : false },
+      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname.includes(  '/app/cameras/grid/?axis=3') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/') ? true : false} 
     ]
     const navigationItemsLists= [
@@ -83,15 +83,15 @@ export default function AdminLayout({ children, ...props }) {
       // { name: 'Settings', href: '#'  },
       { name: 'Sign out', href: '/login', onClick: (e)=> handleSignOut(e) },
     ]
-    useEffect(() => {
-      if(router.pathname.includes('/app/cameras')){
-        setNavigation(navigationItemsCamera)
-      }else if (router.pathname.includes('/app/lists')){
-        setNavigation(navigationItemsLists)
-      }else{
-        setNavigation(mainNavigation)
-      }
-    }, [router.pathname])
+    // useEffect(() => {
+    //   if(router.pathname.includes('/app/cameras')){
+    //     setNavigation(navigationItemsCamera)
+    //   }else if (router.pathname.includes('/app/lists')){
+    //     setNavigation(navigationItemsLists)
+    //   }else{
+    //     setNavigation(mainNavigation)
+    //   }
+    // }, [router.pathname])
     // console.log(navigation)
 
     useEffect(() => {
@@ -356,9 +356,9 @@ export default function AdminLayout({ children, ...props }) {
 
           <main className="flex-1" style={{minHeight:'100vh', backgroundColor:'#f1ebff'}}> 
             <div className="py-6">
-              <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-2">
+              <div className="max-w-8xl mx-auto">
                 {/* Replace with children content */}
-                <div className="py-4 w-full " >
+                <div className=" w-full " >
                     {children}
                 </div>
                 {/* /End replace */}

@@ -15,7 +15,7 @@ export default function search(props) {
     if (!data) return <div>loading...</div>
     console.log(data)
     return (
-        <div className=" ">
+        <div className=" px-4 py-4">
         {/*Search Component */}
             <div>
                 <label htmlFor="search" className="block text-sm font-medium text-gray-700">

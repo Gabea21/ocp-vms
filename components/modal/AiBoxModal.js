@@ -10,6 +10,7 @@ import {GiRoad} from 'react-icons/gi'
 import {BsClockHistory} from 'react-icons/bs'
 import dateformat from 'dateformat'
 
+
 export default function AiBoxModal(props) {
     const{open,setOpen,event, camera} = props
     const [eventLabels, setEventLabels] = useState(null);
@@ -85,19 +86,7 @@ export default function AiBoxModal(props) {
         }
     }, [])
     
-    // useEffect(() => {
-    //        if(event.name === 'object_and_scene_detection' && eventLabels && imgRef.current !== null){
-    //             eventLabels.map((label) =>{    
-    //                 eventBoundingBoxes.push( {coord:[Number(label.Instances[0].BoundingBox.Left)* 100, Number(label.Instances[0].BoundingBox.Top)* 100, Number(label.Instances[0].BoundingBox.Width)* 1000, Number(label.Instances[0].BoundingBox.Height)* 1000], label: label.Name})
-    //                 // console.log('push', label)
-    //             })
-    //             alert('ran')
-    //        }else if ( event.name === 'detect_protective_equipment' && eventLabels && imgRef.current !== null){
-    //             eventLabels.map((label) => {
-    //                 eventBoundingBoxes.push( {coord:[Number(label.BoundingBox.Left)* 1000, Number(label.BoundingBox.Top)* 1000, Number(label.BoundingBox.Width)* 1000, Number(label.BoundingBox.Height)* 1000], label:'Person'})
-    //             })
-    //         }
-    // }, [imgRef])
+
     
     const imgRef = createRef()
 
@@ -201,6 +190,7 @@ export default function AiBoxModal(props) {
                                 <div>
                                    
                                     {showAiClip ?(
+                                            // Ai Event Clip
                                             <video src={aiEventClip[0]?.url} alt="Loading.." width='520px' height='580px'  
                                             controls
                                             muted
@@ -209,6 +199,7 @@ export default function AiBoxModal(props) {
                                             loop   
                                             />
                                         ):(
+                                            // Ai Image
                                             <div className="relative ">
                                                 <div className="asbolute top-0 left-0 right-0 bottom-0">
                                                     {eventBoundingBoxes.map((box,idx) => (
