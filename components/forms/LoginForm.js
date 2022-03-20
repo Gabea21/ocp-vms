@@ -25,7 +25,7 @@ export default function LoginForm() {
 					password: loginPassword,
         });
 				if (!result.error) {
-					router.replace("/app/cameras/main");
+					router.replace("/app/dashboard");
          } else{
            console.log(result.error)
           if(result.error === 'Password doesnt match'){

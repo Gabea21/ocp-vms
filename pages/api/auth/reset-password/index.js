@@ -6,6 +6,41 @@ import {
 	sendResetPasswordEmail
 } from '../../../../lib/mailer';
 import { hash } from 'bcryptjs';
+import mailgunFactory from 'mailgun-js';
+
+const mg_apiKey = process.env.MAILGUN_API_KEY;
+const mg_domain = process.env.MAILGUN_DOMAIN;
+
+const mailgun = mailgunFactory({
+	apiKey: mg_apiKey,
+	domain: mg_domain
+});
+
+function sendEmail({ toUser, hash}) {
+	console.log('Send to', toUser.email)
+	const sendMessage = {
+		from: 'aicloudvms@icappelli.com',
+		to: toUser.email , // in production uncomment this
+		// to: 'gabrielajram@gmail.com',
+		subject: 'Smart Building - Reset Password',
+		html: `
+      <h3>Hello ${toUser.fName} </h3>
+      <p>To reset your password please follow this link: <a target="_" href="${process.env.APP_URL}/auth/reset-password/${hash}">Reset Password Link</a></p>
+      <p>Cheers,</p>
+      <p>One Clinton Park Smart Security</p>
+    `
+	};
+	return new Promise((res, rej) => {
+		mailgun.messages().send(sendMessage, (error, body) => {
+			if (error) {
+				rej(error);
+				console.log(error, mg_apiKey);
+			} else {
+				console.log(body);
+			}
+		});
+	});
+}
 
 export default async function handler(req, res) {
 	const {
@@ -39,15 +74,15 @@ export default async function handler(req, res) {
 				}
 				const hash = new AccessHash({ user_id: user._id });
 				await hash.save();
-				
-				 res.status(200).json({
-					 	success:true,
-						message:
-							'Please check your email to reset the password!'
-					});
-				await sendResetPasswordEmail({ toUser: user, hash: hash._id }); //Mailgun Function
+			
+				const mailRes = sendEmail({ toUser: user, hash: hash._id })
+				console.log('mail res ',  mailRes)
 
-					console.log('ran ', res)
+				return res.status(200).json({
+					success:true,
+				   message:
+					   'Please check your email to reset the password!'
+			   });
 			} catch (error) {
 				res.status(400).json({ success: false });
 				console.log(error);
