@@ -25,7 +25,7 @@ function sendEmail({ toUser, hash}) {
 		subject: 'Smart Building - Reset Password',
 		html: `
       <h3>Hello ${toUser.fName} </h3>
-      <p>To reset your password please follow this link: <a target="_" href="${process.env.APP_URL}/auth/reset-password/${hash}">Reset Password Link</a></p>
+      <p>To reset your password please follow this link: <a target="_" href="https://ocp.parked.app/auth/reset-password/${hash}">Reset Password Link</a></p>
       <p>Cheers,</p>
       <p>One Clinton Park Smart Security</p>
     `
@@ -36,7 +36,7 @@ function sendEmail({ toUser, hash}) {
 				rej(error);
 				console.log(error, mg_apiKey);
 			} else {
-				console.log(body);
+				console.log('Message Sent',body);
 			}
 		});
 	});
