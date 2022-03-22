@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 	switch (method) {
 		case 'GET':
 			const {
-				query: { id, page},
+				query: { id, page, key},
 				method
 			} = req;
 			try {
@@ -29,6 +29,12 @@ export default async function handler(req, res) {
 						{_id: id}
 					); 
 					return res.status(200).json({ success: true, camera: camera });
+				}else if (key === 'all'){
+					console.log('Get All Cameras')
+					const cameras = await Camera.find(
+						{}
+					); 
+					return res.status(200).json({ success: true, cameras: cameras });
 				}else{
 					const PAGE_SIZE = 10;
 					const page = parseInt(req.query.page || "0");

@@ -4,6 +4,9 @@ import http from '../http-common';
 //get All Cameras
 const getAllCamera = () => http.get('/cameras');
 
+//get All Cameras
+const getAllCamerasNoPagination = () => http.get('/cameras/?key=all');
+
 //get One Cameras
 const getCamera = (id) => http.get(`/cameras/${id}`);
 
@@ -34,6 +37,7 @@ const createShareUrl = (expireTime, camera, secondsFromNow ) => http.post('/came
 
 export default {
   getAllCamera,
+  getAllCamerasNoPagination,
   getCamera,
   createCamera,
   deleteCamera,

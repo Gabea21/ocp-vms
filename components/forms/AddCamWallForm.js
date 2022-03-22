@@ -12,7 +12,7 @@ export default function AddCamWallForm(props) {
     const {mutate} = useSWRConfig()
 
     const fetchCameras = async() => {
-        const res = await CameraService.getAllCamera()
+        const res = await CameraService.getAllCamerasNoPagination()
         if(res.data.success){
             setCameras(res.data.cameras)
             setLoading(false)
