@@ -50,7 +50,6 @@ function MyApp({ Component, pageProps:{session, ...pageProps} }) {
 
 			):router.pathname.startsWith('/walls') || router.pathname.startsWith('/sharedcamera') ?(
 				<>
-					
 					<Component {...pageProps} />
 			 	 </>
 

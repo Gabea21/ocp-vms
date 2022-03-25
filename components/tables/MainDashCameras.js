@@ -98,25 +98,25 @@ export default function MainDashCameras(props) {
         <div className="flex flex-col mt-4">
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg max-h-[600px] overflow-y-auto ">
+                        <table className="min-w-full divide-y divide-gray-200 ">
+                        <thead className="bg-gray-50 ">
                             <tr>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-center text-md font-medium text-gray-500 uppercase tracking-wider"
+                                className="sticky top-0 z-10 border-b border-gray-300 bg-gray-100 bg-opacity-75 px-6 py-3 text-center text-md font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Name
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-center text-md font-medium text-gray-500 uppercase tracking-wider"
+                                className="sticky top-0 z-10 border-b border-gray-300 bg-gray-100 bg-opacity-75px-6 py-3 text-center text-md font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Main Camera
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-center text-md font-medium text-gray-500 uppercase tracking-wider"
+                                className="sticky top-0 z-10 border-b border-gray-300 bg-gray-100 bg-opacity-75 px-6 py-3 text-center text-md font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 View 
                             </th>
@@ -124,7 +124,7 @@ export default function MainDashCameras(props) {
                           
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-md font-medium text-gray-500 uppercase tracking-wider"
+                                className="sticky top-0 z-10 border-b border-gray-300 bg-gray-100 bg-opacity-75 px-6 py-3 text-left text-md font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Camera
                             </th>
@@ -197,7 +197,7 @@ export default function MainDashCameras(props) {
                         </tbody>
                         </table>
                         <nav
-                            className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+                            className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 sticky bottom-0 z-100"
                             aria-label="Pagination"
                             >
                             <div className="flex-1 flex justify-start ">

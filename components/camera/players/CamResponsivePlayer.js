@@ -97,7 +97,7 @@ export default function CamResponsivePlayer(props) {
                     //leaved the stream
                     console.log("play finished");
                     // videoRef.current.play()
-                    console.log(  videoRef,'ref')
+                    // console.log(  videoRef.current.ended,'ref')
                 } else if (info == "closed") {
                     //console.log("Connection closed");
                     if (typeof obj != "undefined") {
@@ -145,7 +145,7 @@ export default function CamResponsivePlayer(props) {
     console.log(videoRef)
     return (
         <div>
-            <video ref={videoRef} width="800" className="rounded-lg" id={`remoteVideo${props.index}${props.camera?._id}`} autoPlay muted controls playsInline
+            <video ref={videoRef} width="800" className="rounded-lg max-h-[50vh]" id={`remoteVideo${props.index}${props.camera?._id}`} autoPlay muted controls playsInline
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={true} webkitallowfullscreen="true" mozallowfullscreen="true" />       
         </div>

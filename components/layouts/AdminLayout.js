@@ -46,32 +46,19 @@ export default function AdminLayout({ children, ...props }) {
       }
 
     const [navigation, setNavigation] = useState([
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
-      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname.includes(  '/app/cameras/grid/?axis=3') ? true : false },
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname === '/app/dashboard'  ? true : false },
+      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname ===  (  '/app/cameras/grid/?axis=3') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false},
       { name: 'Search Lists', href: '/app/lists/search', icon: SearchIcon, current: router.pathname.includes('/app/lists/search') ? true : false } ,
 
     ])
    
     const mainNavigation = [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard' )? true : false },
-      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname.includes(  '/app/cameras/grid/?axis=3') ? true : false },
+      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname === ('/app/dashboard' ) ? true : false },
+      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname ===  (  '/app/cameras/grid/?axis=3') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/') ? true : false} 
     ]
-    const navigationItemsLists= [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
-      { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/main') ? true : false },
-      { name: 'Search Lists', href: '/app/lists/search', icon: SearchIcon, current: router.pathname.includes('/app/lists/search') ? true : false } ,
-    ]
-
-    const navigationItemsCamera = [
-      { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname.includes('/app/dashboard') ? true : false },
-      { name: 'Camera Control', href: '/app/cameras/main', icon:  VideoCameraIcon, current: router.pathname.includes( '/app/cameras/main' ) ? true : false },
-      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname.includes(  '/app/cameras/grid/?axis=3') ? true : false },
-      
-      // { name: '2x2 Grid', href: '/app/cameras/grid?axis=2', icon: ViewGridAddIcon, current: router.pathname === '/app/cameras/grid?axis=2' ? true : false },
-      // { name: 'All Cameras', href:  '/app/cameras/manage', icon: ViewListIcon, current: router.pathname === '/app/cameras/manage' ? true :  false },
-    ]
+ 
     const [navAdmin, setNavAdmin] = useState([
       {name: 'Locations', href:'/app/location', icon: GrMapLocation , current: router.pathname === ('/app/location') ? true : false},
       { name: 'Device Hub', href: '/app/devices', icon:  MdDevicesOther, current: router.pathname.includes('/app/devices') ? true : false },
@@ -85,16 +72,7 @@ export default function AdminLayout({ children, ...props }) {
       // { name: 'Settings', href: '#'  },
       { name: 'Sign out', href: '/login', onClick: (e)=> handleSignOut(e) },
     ]
-    // useEffect(() => {
-    //   if(router.pathname.includes('/app/cameras')){
-    //     setNavigation(navigationItemsCamera)
-    //   }else if (router.pathname.includes('/app/lists')){
-    //     setNavigation(navigationItemsLists)
-    //   }else{
-    //     setNavigation(mainNavigation)
-    //   }
-    // }, [router.pathname])
-    // console.log(navigation)
+   
 
     useEffect(() => {
       setSidebarOpen(false)
@@ -298,6 +276,7 @@ export default function AdminLayout({ children, ...props }) {
                     <button
                         key={idx}
                         type="button"
+                        onClick={()=> setSelectedMenu(navItem.name)}
                         // onClick={() => router.push(navItem.href)}
                         className={ navItem.current ?
                           "inline-flex items-center px-3 py-2 border-b-4 border-t-4 shadow-blue-700 shadow-md border-blue-600 text-lg leading-4 font-bold rounded-md  text-black "

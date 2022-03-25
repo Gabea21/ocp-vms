@@ -13,7 +13,6 @@ export default function LoginForm() {
   const [loginPassword, setLoginPassword] = React.useState('');
   const router = useRouter();
   const {data: session} = useSession();
-  console.log(session,'session')
 
   const onSubmit = async(e) => {
     e.preventDefault()

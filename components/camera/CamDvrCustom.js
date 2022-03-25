@@ -276,7 +276,8 @@ export default function CamDvrCustom(props) {
         setShowArchiveOptions(false)
         setShowExpireOptions(!showExpireOptions)
     }
-    // Handle Create URL
+
+    ////////// Handle Create URL///////
     const handleShowLink = async(e) => {
         e.preventDefault()
         // setShowExpireOptions(true)
@@ -289,7 +290,8 @@ export default function CamDvrCustom(props) {
         setExpirationDate(expiration)
         setCurrentDate(date)
         try{
-            
+            // TO Do Change to Share Clip not Camera
+            //let currViewing = dateformat(new Date(vidSrcArr[currentUrlIndex]?.start + 'z'), ' hh:MM:ss TT' )
             const apiRes = await CameraService.createShareUrl(expiration,camera, secondsFromNow )
             if(apiRes.data.success){
                 console.log('Created Share URL 🎉 ', apiRes.data)
@@ -303,6 +305,7 @@ export default function CamDvrCustom(props) {
     }
 ////////////////////////////////////////////////
 
+
     ///////////////////////////// Video Player Callbacks //////////////////////
     const handleProgress = state => {
         // console.log('onProgress', state)
@@ -311,6 +314,7 @@ export default function CamDvrCustom(props) {
           setAllValues(allValues)
         }
       }
+
     const handleDuration = (duration) => {
         // console.log('onDuration', duration)
         setClipDuration(duration)

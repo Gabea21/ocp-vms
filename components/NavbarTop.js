@@ -2,6 +2,7 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon, UserCircleIcon} from '@heroicons/react/outline' 
+import {FaUserCircle} from "react-icons/fa"
 import {signOut, useSession} from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -78,7 +79,7 @@ export default function NabarTop() {
                   <div>
                     <Menu.Button className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
-                      <UserCircleIcon  className="block h-12 w-12 text-black" aria-hidden="true" />
+                      <FaUserCircle className="block h-12 w-12 text-blue-500" aria-hidden="true" />
                     </Menu.Button>
                   </div>
                   <Transition
@@ -103,7 +104,7 @@ export default function NabarTop() {
                           </a>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
+                      {/* <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
@@ -112,7 +113,7 @@ export default function NabarTop() {
                             Settings
                           </a>
                         )}
-                      </Menu.Item>
+                      </Menu.Item> */}
                     <Menu.Item>
                               {({ active }) => (
                                 <a

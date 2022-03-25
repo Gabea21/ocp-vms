@@ -31,21 +31,19 @@ export default function dashboard(props) {
     return (
         <div className="min-h-[100vh] bg-gray-50 rounded">
             
-           <div className="flex flex-col-reverse sm:flex-row py-4"> 
+           <div className="flex flex-col lg:flex-row lg:justify-evenly py-4"> 
                 <div className="relative rounded-lg  px-4 flex flex-col items-center justify-center">
                   <CamResponsivePlayer camera={ selectedCamera ?  selectedCamera : data.cameras[0]  }/> 
-                    
-                
                     {/* <button className="bg-white bg-opacity-30 rounded-full top-2 left-4 px-1 absolute backdrop-blur-sm">Open Full</button> */}
                 </div>
                 <div className="hidden sm:flex sm:flex-col sm:items-center  ">
-                    <span className="text-2xl lg:text-3xl"> Main Control</span>
+                    <span className="text-2xl lg:text-3xl my-2 font-bold"> Main Control</span>
                     {selectedWebrelay && selectedWebrelay?.model === 'Quad_OLD' && <WebRelayQuadOldKioskControl webrelay={selectedWebrelay} />}
                     {selectedWebrelay && (selectedWebrelay?.model === 'X410' || selectedWebrelay?.model === 'X401') && <WebRelayX410KioskControl webrelay={selectedWebrelay} />}
                 </div>
            </div>
            <div>
-               <div className="flex flex-col sm:flex-row ">
+               <div className="flex flex-col lg:flex-row ">
                    <div className= "flex flex-col lg:w-[20%] item-center justify-start px-1 shadow-xl">
                        <button onClick={(e) => handleSelectDevice(e)} 
                             value="cameras" 
