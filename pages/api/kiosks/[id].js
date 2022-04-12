@@ -1,3 +1,4 @@
+import axios from 'axios';
 import dbConnect from '../../../mongo/dbConnect';
 import Kiosk from '../../../mongo/models/kiosk';
 
@@ -58,14 +59,22 @@ export default async function handler(req, res) {
 
 		case 'DELETE' /* Delete a model by its ID */:
 			try {
-				console.log('Delete Kiosk ',id)
+				console.log('Run Delete Kiosk ',id)
+				const kiosk = await Kiosk.findOne({ _id: id });
+				
+				// const amsRes = await axios.delete(encodeURI(`${process.env.MEDIA_SERVER_URL}/WebRTCAppEE​/v2​/broadcasts​/conference-rooms​/${kiosk.kiosk_id.toString()}`))
+				// if(!amsRes.data){
+				// 	return res.status(429).json({ success:false , message:'Room Could Not Be Deleted' })
+				// }
+				// console.log('Deleted Room', amsRes)
 
 				const deletedKiosk = await Kiosk.deleteOne({ _id: id });
 				if (!deletedKiosk) {
 					return res.status(400).json({ success: false });
 				}
-				res.status(200).json({ success: true, data: deletedKiosk });
+				return res.status(200).json({ success: true, data: deletedKiosk });
 			} catch (error) {
+				console.log('Could Not Delete Kiosk /or Room', error)
 				res.status(400).json({ success: false });
 			}
 			break;

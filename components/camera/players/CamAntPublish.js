@@ -37,7 +37,7 @@ export default function CamAntPublish(props) {
                 .then(function (stream) {
                     videox.srcObject = stream;
                 })
-                .catch(function (err0r) {
+                .catch(function (error) {
                     console.log("Something went wrong!");
                 });
         };

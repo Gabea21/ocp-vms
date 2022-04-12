@@ -37,7 +37,7 @@ export default function LoginForm() {
 				console.log(error,'eror');
 			}
 		} else {
-			router.push("/app/cameras/main");
+			router.push("/app/dashboard");
 		}
   }
 
@@ -70,7 +70,7 @@ export default function LoginForm() {
              </Link>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={(e) => onSubmit(e)}>
+          <form className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -127,15 +127,30 @@ export default function LoginForm() {
 
             <div>
               <button
-                type="submit"
+                type="button"
+                onClick={(e) => onSubmit(e)}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                  <LockClosedIcon className="h-5 w-5 text-blue-500 group-hover:text-indigo-400" aria-hidden="true" />
+                <span  className="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <LockClosedIcon className="h-5 w-5 text-blue-300 group-hover:text-indigo-400" aria-hidden="true" />
                 </span>
                  Login
               </button>
+             
             </div>
+            {/* <div>
+              <button
+                type="button"
+                onClick={() => signIn("google")}
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <span  className="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <LockClosedIcon className="h-5 w-5 text-blue-500 group-hover:text-indigo-400" aria-hidden="true" />
+                </span>
+                 Google SSO
+              </button>
+             
+            </div> */}
           </form>
         </div>
       </div>

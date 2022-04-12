@@ -16,14 +16,15 @@ async function fetcherFunc(url){
 export function UserAuthProvider(props) {
     const { children} = props
     const {data: session, status} = useSession()
-    const url = `/api/users?email=${session.user.email}`;
+console.log(session, status)
+    const url = `/api/users?email=${session?.user?.email}`;
     const { data: userData,error } = useSWR(url, fetcherFunc, {initialProps: props});
     // console.log('Admin Session',session,status, user)
 
     if(error) return <h1>User Failed 2nd Verification Method</h1>
     if(!userData) return <h1>Validating User Session....</h1>
 	return (
-	   <AuthContext.Provider value={{ user: userData.user , status:status  }} >
+	   <AuthContext.Provider value={{ user: userData?.user , status:status  }} >
 	   	{children}
 	   </AuthContext.Provider>
 	)

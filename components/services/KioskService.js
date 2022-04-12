@@ -3,6 +3,18 @@ import http from '../http-common';
 //get All Kiosks
 const getAllKiosk = () => http.get('/kiosks');
 
+const masterCallAccept = (kiosk_id) => http.put('/kiosks',{
+  updateKey: 'masterCallAccept',
+  kiosk_id:kiosk_id
+})
+const callMaster = (kiosk_id) => http.put('/kiosks',{
+  updateKey: 'startCallRequest',
+  kiosk_id:kiosk_id
+})
+const endCallRequest = (kiosk_id) => http.put('/kiosks',{
+  updateKey: 'endCallRequest',
+  kiosk_id:kiosk_id
+})
 
 // //create Kiosk
 // const createKiosk = (data) => {
@@ -27,7 +39,10 @@ const deleteKiosk = (id) => http.delete(`/kiosks/${id}`);
 
 export default {
   getAllKiosk,
+  masterCallAccept,
   // createKiosk,
   deleteKiosk,
+  callMaster ,
+  endCallRequest
   
 };

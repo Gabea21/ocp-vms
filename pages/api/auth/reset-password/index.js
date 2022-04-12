@@ -1,10 +1,6 @@
 import dbConnect from '../../../../mongo/dbConnect';
 import User from '../../../../mongo/models/user';
 import AccessHash from '../../../../mongo/models/accessHash';
-import {
-	sendConfirmationEmail,
-	sendResetPasswordEmail
-} from '../../../../lib/mailer';
 import { hash } from 'bcryptjs';
 import mailgunFactory from 'mailgun-js';
 

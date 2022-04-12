@@ -1,4 +1,3 @@
-import axios from 'axios';
 import dbConnect from '../../../../mongo/dbConnect';
 import Wall from '../../../../mongo/models/wall';
 import Camera from '../../../../mongo/models/camera';

@@ -3,7 +3,7 @@ import xml2js from 'xml2js';
 import dbConnect from '../../../mongo/dbConnect';
 import DetectedPlate from '../../../mongo/models/detectedPlate';
 import Trigger from '../../../mongo/models/trigger';
-import {sendCallbackText, sendCallbackAlertText} from '../../../components/lib/sms/callbacksms';
+import {sendCallbackText, sendCallbackAlertText} from '../../../lib/sms/callbacksms';
 
 export default async function handler(req, res) {
 	const { method } = req;

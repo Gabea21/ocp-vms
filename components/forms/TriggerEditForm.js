@@ -2,6 +2,7 @@ import { BsTrash } from "react-icons/bs";
 
 export default function TriggerEditForm(props) {
     const {selectedEditItem,  deleteNotifMember} = props;
+    
     return (
         <div>
             <div className="bg-white mt-4 shadow sm:rounded-lg lg:min-h-[800px]">

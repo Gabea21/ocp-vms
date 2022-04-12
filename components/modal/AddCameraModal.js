@@ -17,7 +17,7 @@ export default function AddCameraModal({open, setOpen}) {
         deviceUsername:'',
         devicePassword:'',
         deviceStreamPath:'',
-        passthrough: true, 
+        passthrough: true,  //No Edge Ai
         });
    
     const changeHandler = e => {

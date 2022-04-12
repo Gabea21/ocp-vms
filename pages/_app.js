@@ -40,6 +40,7 @@ function MyApp({ Component, pageProps:{session, ...pageProps} }) {
 							<Component {...pageProps}></Component>
 						</AdminLayout>
 					</ UserAuthProvider>
+
 				</Auth>
 			) : router.pathname.startsWith('/kiosks') ?(
 				<>

@@ -2,10 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import {HiOutlineStatusOnline, HiStatusOffline} from 'react-icons/hi';
-import WebRTCAdaptor from '../../lib/webrtc_adaptor';
-import CamAntToolbar from '../CamAntToolbar';
+import WebRTCAdaptor from '../lib/webrtc_adaptor';
 
-export default function CamSinglePlayer(props) {
+export default function KioskPeerPlayer(props) {
     const {index, camera, maxHeight} = props;
     const videoRef = useRef();
     /// Media Server
@@ -30,6 +29,7 @@ export default function CamSinglePlayer(props) {
     const [connectionError, setConnectionError] = useState(false)
     const [connected, setConnected] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false);
+    const [streamNoExist, setStreamNoExist] = useState(false);
 
     useEffect(() => {
        setWebRTCAdaptor(initiateWebrtc())
@@ -45,6 +45,16 @@ export default function CamSinglePlayer(props) {
            }
         }
     }, [webRTCAdaptor])
+
+    useEffect(() => {
+        if(connectionError ){
+            console.log('Stream Not Found Side-Reload 🔋 ')
+            setConnectionError(false)
+            setStreamNoExist(false)
+            onStartPlaying(streamName)
+        }
+    }, [connectionError])
+
     
     useEffect(() => {
         if(webRTCAdaptor !== null && connected === true ){
@@ -87,7 +97,8 @@ export default function CamSinglePlayer(props) {
                     //leaved the stream
                     console.log("play finished");
                     // videoRef.current.play()
-                    console.log(  videoRef,'ref')
+                    setIsPlaying(false)
+
                 } else if (info == "closed") {
                     //console.log("Connection closed");
                     if (typeof obj != "undefined") {
@@ -124,17 +135,21 @@ export default function CamSinglePlayer(props) {
                 }
             },
             callbackError: function (error) {
-                //some of the possible errors, NotFoundError, SecurityError,PermissionDeniedError
-                setConnectionError(true);
-                console.log("error callback: " + JSON.stringify(error));
-                // alert(JSON.stringify(error));
-                console.log(JSON.stringify(error))
+                  //some of the possible errors, NotFoundError, SecurityError,PermissionDeniedError
+                  setConnectionError(true);
+                  console.log("error callback: " + JSON.stringify(error));
+                  // alert(JSON.stringify(error));
+                  if(JSON.stringify(error) === ('no_stream_exist' || 'noStreamNameSpecified')){
+                      console.log('CALLED','no_stream_exist')
+                     setStreamNoExist(true)
+                  }
+                  console.log(JSON.stringify(error))
             }
         });
     }
     return (
         <div>
-            <video ref={videoRef} className= {maxHeight ? `w-full max-w-[1000px]  m-auto max-h-[380px]` : "w-full max-w-[1000px]  m-auto"} id={`remoteVideo${props.index}${camera?._id}`} autoPlay muted controls playsInline
+            <video ref={videoRef} className= {maxHeight ? `w-full max-w-[1000px]  m-auto max-h-[380px]` : "w-full max-w-[1000px]  m-auto"} id={`remoteVideo${props.index}${camera?._id}`} autoPlay  controls playsInline
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={true} webkitallowfullscreen="true" mozallowfullscreen="true" />       
         </div>

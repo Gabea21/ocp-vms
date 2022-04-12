@@ -22,7 +22,7 @@ import {
   MapIcon
 } from '@heroicons/react/outline'
 import { SearchIcon, CogIcon } from '@heroicons/react/solid'
-import {  MdDevicesOther, MdGarage } from "react-icons/md"
+import {  MdDevicesOther, MdGarage, MdTabletMac } from "react-icons/md"
 import {GrMapLocation} from "react-icons/gr"
 import Image from 'next/image';
 import AppNavTop from '../AppNavTop';
@@ -38,7 +38,7 @@ export default function AdminLayout({ children, ...props }) {
     const router = useRouter();
     const [selectedMenu, setSelectedMenu] = useState('')
 
-		//Layout 
+    //Layout 
 		const [sidebarOpen, setSidebarOpen] = useState(false)
 		const handleSignOut = (e) => {
 			e.preventDefault();
@@ -47,6 +47,7 @@ export default function AdminLayout({ children, ...props }) {
 
     const [navigation, setNavigation] = useState([
       { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname === '/app/dashboard'  ? true : false },
+      // { name: 'Kiosks', href: '/app/dashboard/kiosks', icon: MdTabletMac, current: router.pathname === '/app/dashboard/kiosks'  ? true : false },
       { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname ===  (  '/app/cameras/grid/?axis=3') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: CollectionIcon, current: router.pathname.includes('/app/lists/') ? true : false},
       { name: 'Search Lists', href: '/app/lists/search', icon: SearchIcon, current: router.pathname.includes('/app/lists/search') ? true : false } ,
@@ -55,7 +56,7 @@ export default function AdminLayout({ children, ...props }) {
    
     const mainNavigation = [
       { name: 'Main Dashboard', href: '/app/dashboard', icon: OfficeBuildingIcon, current: router.pathname === ('/app/dashboard' ) ? true : false },
-      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname ===  (  '/app/cameras/grid/?axis=3') ? true : false },
+      { name: 'Grid Wall', href: '/app/cameras/grid/?axis=3', icon: ViewGridAddIcon, current: router.pathname ===  (  '/app/cameras/grid?axis=3') ? true : false },
       { name: 'Garage Access', href: '/app/lists/main', icon: MdGarage, current: router.pathname.includes('/app/lists/') ? true : false} 
     ]
  
@@ -73,7 +74,12 @@ export default function AdminLayout({ children, ...props }) {
       { name: 'Sign out', href: '/login', onClick: (e)=> handleSignOut(e) },
     ]
    
-
+    useEffect(() => {
+      if(auth.user === null){
+        signOut()
+        // router.push('/')
+      }
+    }, [auth])
     useEffect(() => {
       setSidebarOpen(false)
     }, [router.pathname])
@@ -155,7 +161,7 @@ export default function AdminLayout({ children, ...props }) {
                         </a>
                       </Link>
                     ))}
-                  {auth?.user.userType === 0 &&
+                  {auth?.user?.userType === 0 &&
                   <>
                   <hr/>
                     {navAdmin.map((item) => (
@@ -278,7 +284,7 @@ export default function AdminLayout({ children, ...props }) {
                         type="button"
                         onClick={()=> setSelectedMenu(navItem.name)}
                         // onClick={() => router.push(navItem.href)}
-                        className={ navItem.current ?
+                        className={ navItem.name === selectedMenu ?
                           "inline-flex items-center px-3 py-2 border-b-4 border-t-4 shadow-blue-700 shadow-md border-blue-600 text-lg leading-4 font-bold rounded-md  text-black "
                           : 
                           "inline-flex items-center px-3 py-2 border-2 bg-gray-100 border-transparent text-lg leading-4 font-bold rounded-md shadow-md  text-black  border-blue-700 hover:border-4"

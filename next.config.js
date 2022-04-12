@@ -6,6 +6,7 @@ module.exports = withPWA({
 		register: false, // turn true to allow PWA
 		skipWaiting: true,
 		disable: process.env.NODE_ENV === 'development',
+		
 	},
 	eslint: {
 		// Warning: This allows production builds to successfully complete even if

@@ -1,13 +1,13 @@
 import useSWR from 'swr';
-import WebRelayService from '../../components/services/WebRelayService';
 import { useEffect, useState } from 'react';
-import KioskControlCard from '../../components/cards/KioskControlCard';
-import CamResponsivePlayer from '../../components/camera/players/CamResponsivePlayer';
-import ManageCameraTable from '../../components/tables/ManageCameraTable';
-import MainDashCameras from '../../components/tables/MainDashCameras';
-import MainDashWebrelays from '../../components/tables/MainDashWebrelays';
-import WebRelayQuadOldKioskControl from '../../components/section/WebRelayQuadOldKioskControl';
-import WebRelayX410KioskControl from '../../components/section/WebRelayX410KioskControl';
+import WebRelayService from '../../../components/services/WebRelayService';
+import KioskControlCard from '../../../components/cards/KioskControlCard';
+import CamResponsivePlayer from '../../../components/camera/players/CamResponsivePlayer';
+import ManageCameraTable from '../../../components/tables/ManageCameraTable';
+import MainDashCameras from '../../../components/tables/MainDashCameras';
+import MainDashWebrelays from '../../../components/tables/MainDashWebrelays';
+import WebRelayQuadOldKioskControl from '../../../components/section/WebRelayQuadOldKioskControl';
+import WebRelayX410KioskControl from '../../../components/section/WebRelayX410KioskControl';
 
 async function fetcherFunc(url){
     const res = await fetch(url);
@@ -32,7 +32,7 @@ export default function dashboard(props) {
         <div className="min-h-[100vh] bg-gray-50 rounded">
             
            <div className="flex flex-col lg:flex-row lg:justify-evenly py-4"> 
-                <div className="relative rounded-lg  px-4 flex flex-col items-center justify-center">
+                <div className="relative rounded-lg  px-4 flex flex-col items-center justify-center max-w-[700px]">
                   <CamResponsivePlayer camera={ selectedCamera ?  selectedCamera : data.cameras[0]  }/> 
                     {/* <button className="bg-white bg-opacity-30 rounded-full top-2 left-4 px-1 absolute backdrop-blur-sm">Open Full</button> */}
                 </div>

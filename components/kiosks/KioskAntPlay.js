@@ -15,7 +15,7 @@ export default function KioskAntPlay(props) {
     const [mediaConstraints, setMediaConstraints] = useState({
         video: false, audio: false
     })
-    const [streamName, setStreamName] = useState('')
+    const [streamName, setStreamName] = useState(`${kiosk_id}`)
     const [token, setToken] = useState('')
     const [pc_config, setPc_config] = useState({
         'iceServers': [{
@@ -35,12 +35,22 @@ export default function KioskAntPlay(props) {
     const [showVod, setShowVod] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false);
     const [callFinished, setCallFinished] = useState(false);
+    const [streamNoExist, setStreamNoExist] = useState(false);
 
     useEffect(() => {
         setWebRTCAdaptor(initiateWebrtc())
         setIsShow(true)
        
     }, [])
+
+    useEffect(() => {
+        if(connectionError){
+         console.log('Stream Not Found Side-Reload 🔋 ')
+         setConnectionError(false)
+        setStreamNoExist(false)
+        onStartPlaying(streamName)
+    }
+    }, [connectionError])
 
      // Close Peer Connection Cleanup Function
      useEffect(() => {
@@ -137,6 +147,10 @@ export default function KioskAntPlay(props) {
                 setConnectionError(true);
                 console.log("error callback: " + JSON.stringify(error));
                 // alert(JSON.stringify(error));
+                if(JSON.stringify(error) === ('no_stream_exist' || 'noStreamNameSpecified')){
+                    console.log('CALLED','no_stream_exist')
+                   setStreamNoExist(true)
+                }
                 console.log(JSON.stringify(error))
             }
         });

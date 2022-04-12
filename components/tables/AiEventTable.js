@@ -26,7 +26,7 @@ export default function CamEventTable(props) {
         const res = await axios.post(`/api/cameras/ai?id=${camera._id}&next=true`,{
             nextUrl: loadNextUrl
         })
-        console.log(res)
+        // console.log(res.data)
         // setEvents(res.events)
         events.push(... res.data.events.objects)
         setEventsMeta(res.data.events.meta)

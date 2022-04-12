@@ -4,83 +4,45 @@ import { Dialog, Transition } from '@headlessui/react'
 import { PhoneIcon, PlayIcon, XIcon } from '@heroicons/react/outline'
 import axios from 'axios';
 import CamAnt from '../camera/CamAnt';
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import WebRelayQuadOldControl from '../section/WebRelayQuadOldControl';
 import CameraService from '../services/CameraService';
 import WebRelayService from '../services/WebRelayService';
 import KioskAntPlay from '../kiosks/KioskAntPlay';
 import KioskControllerAntPublish from '../kiosks/KioskControllerAntPublish';
+import CamSinglePlayer from '../camera/players/CamSinglePlayer';
 import CamAntPublish from '../camera/players/CamAntPublish';
 import WebRelayX410KioskControl from '../section/WebRelayX410KioskControl';
 import WebRelayQuadOldKioskControl from '../section/WebRelayQuadOldKioskControl';
-import KioskService from '../services/KioskService';
-import KioskPeerPlayer from '../kiosks/KioskPeerPlayer';
+import CamAntConference from '../camera/players/CamAntConference';
 
 async function fetcherFunc(url){
     const res = await fetch(url);
     return res.json();
     }
-export default function KioskControlModal(props) {
+export default function KioskCallModal(props) {
     const {open,setOpen, kiosk } = props;
     const [startCall, setStartCall] = useState(false);
-    const { mutate } = useSWRConfig()
     const [webRelay, setWebRelay] = useState({});
-    const [camera, setCamera] = useState(null)
     
     const callsToAction = [
         // { name: startCall ?  'Hide Kiosk':'Show Kiosk',  
         //     onClick: startCall ?  () => handleEndCall() : () => setStartCall(true),
         //     icon: PhoneIcon , 
         //     background: startCall ? "bg-red-300" :  "bg-green-300" },
-        { name: 'Close', onClick: () => handleEndCall() , icon: XIcon, background: "bg-red-300" },
+        { name: 'Close', onClick: () => setOpen(false) , icon: XIcon, background: "bg-red-300" },
       ]
     
   
-      // Fetch Kiosk Camera
-    const getKioskCamera = async (kiosk) => {
-      const res = await CameraService.getCamera(kiosk.camera_id)
-      res.data.camera.antStreamId = kiosk.kiosk_id //hide for kiosks with IPcamera instead of tablet cam
-      setCamera(res.data.camera)
-    }
-
-  // Fetch Kiosk Controller
+   
     const getKioskWebRelay = async (kiosk) => {
         const res = await WebRelayService.getWebRelay(kiosk.webrelay_id)
         setWebRelay(res.data.webrelay)
     }
-
-    // Update Call Accepted in DB
-   const handleCallAccept = async (kiosk) => {
-    try{
-        const apiRes = await KioskService.masterCallAccept(kiosk.kiosk_id)
-        if(apiRes.data.success){
-            console.log('Call Answer Request Success 🎉 ')
-        }
-     }catch(err){
-         console.log('Call Accept Err', err)
-     }
-   }
-
-   const handleEndCall = async() => {
-    try{
-        const apiRes = await KioskService.endCallRequest(kiosk.kiosk_id)
-        if(apiRes.data.success){
-            console.log('Call  Ended🎉 ')
-            mutate(`/api/kiosks?id=${kiosk.kiosk_id}`)
-            setOpen(false)
-        }
-    }catch(err){
-        console.log('End kiosk call ERR', err)
-    }
-}
- 
-
   useEffect(() => {
-      getKioskCamera(kiosk)
       getKioskWebRelay(kiosk)
-      handleCallAccept(kiosk)
   }, [])
-  console.log(camera)
+  
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 overflow-hidden" onClose={setOpen}>
@@ -97,7 +59,7 @@ export default function KioskControlModal(props) {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <div className="w-screen max-w-2xl">
+              <div className="w-screen max-w-2xl z-1000">
                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                   <div className="px-4 sm:px-6">
                     <div className="flex items-start justify-between">
@@ -133,19 +95,8 @@ export default function KioskControlModal(props) {
                     </div>
 
                      {/* Video Component*/}
-               
-                    {camera && 
-                          <div className="w-full relative">
-                           
-                              <div className="w-full  max-h-[280px] sm:max-h-[420px] lg:max-h-[500px]">
-                                <KioskPeerPlayer maxHeight={true} camera={camera} />
-                              </div>
-                              <div className="w-[130px] sm:w-[200px] absolute top-2 right-2 z-[1000]">
-                                <KioskControllerAntPublish kiosk_id ={`${kiosk.kiosk_id}-manager`} /> {/* set kiosk manager stream_id*/}
-                              </div>
-                           </div>
-                          }
-
+                        <CamAntConference publishId={`${kiosk.kiosk_id}-manager`} roomId={kiosk.kiosk_id}/>
+                 
                         {/* Control Panel */}
                        {webRelay.model === 'Quad_OLD' &&  <WebRelayQuadOldKioskControl webrelay={webRelay} />}
                        {webRelay.model === 'X410' &&  <WebRelayX410KioskControl webrelay={webRelay} />}  

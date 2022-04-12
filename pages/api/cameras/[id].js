@@ -1,6 +1,7 @@
 import axios from 'axios';
 import dbConnect from '../../../mongo/dbConnect';
 import Camera from '../../../mongo/models/camera';
+import AWSCAM from '../../../lib/aws/index';
 
 export default async function handler(req, res) {
 	const {
@@ -34,7 +35,7 @@ export default async function handler(req, res) {
 
 		case 'PUT' /* Edit a model by its ID */:
 			try {
-				console.log(id)
+
 				const {updateVal, updateKey} = req.body
 				if(updateKey === 'deviceName'){
 					console.log('Camera Name Update')
@@ -44,8 +45,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
 					});
-					console.log(camera)
-                    res.status(200).json({ success: true, data: camera});
+                   return res.status(200).json({ success: true, data: camera});
 				}else if (updateKey === 'deviceLocation'){
 					console.log('Camera Location  Update')
 					const camera = await Camera.findByIdAndUpdate(id,{
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
                     });
-                    res.status(200).json({ success: true, data: camera});
+                   return  res.status(200).json({ success: true, data: camera});
 				}else if (updateKey === 'deviceIp'){
 					console.log('Camera Ip_Address Update')
 					const camera = await Camera.findByIdAndUpdate(id,{
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
                     });
-                    res.status(200).json({ success: true, data: camera});
+                    return res.status(200).json({ success: true, data: camera});
 				}else if (updateKey === 'devicePort'){
 					console.log('Camera Port_Address Update')
 					const camera = await Camera.findByIdAndUpdate(id,{
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
                     });
-                    res.status(200).json({ success: true, data: camera});
+                   return  res.status(200).json({ success: true, data: camera});
 				}else if (updateKey === 'DeviceUsername'){
 					console.log('Camera UserName Update')
 					const camera = await Camera.findByIdAndUpdate(id,{
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
                     });
-                    res.status(200).json({ success: true, data: camera});
+                   return res.status(200).json({ success: true, data: camera});
 				}else if (updateKey === 'devicePassword'){
 					console.log('Camera Password Update')
 					const camera = await Camera.findByIdAndUpdate(id,{
@@ -90,7 +90,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
                     });
-                    res.status(200).json({ success: true, data: camera});
+                   return res.status(200).json({ success: true, data: camera});
 				}else if (updateKey === 'recording'){
 					//IMplement todo frontend
 					console.log('Camera Recording Update')
@@ -102,7 +102,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
                     });
-                    res.status(200).json({ success: true, data: camera});
+                   return res.status(200).json({ success: true, data: camera});
 				}else{
 					console.log('Camera Stream Path Update')
 					const camera = await Camera.findByIdAndUpdate(id,{
@@ -111,7 +111,7 @@ export default async function handler(req, res) {
                         new: true,
                         runValidators: true
                     });
-                    res.status(200).json({ success: true, data: camera});
+                   return res.status(200).json({ success: true, data: camera});
 				}
 			} catch (error) {
 				res.status(400).json({ success: false });
@@ -124,29 +124,21 @@ export default async function handler(req, res) {
 				
 				//Delete From APIVXG
 				console.log('Deleting Channel From API-G',camera._id,'cID:',camera.vxg.channel_id)
-				const apiRes = await instance.delete('/channels', {
-					// headers: {
-					// 	Authorization: authorizationToken
-					//   },
-					data: { // data {} necessary for axios.delete req.body to be sent
-						channel_id: camera.vxg.channel_id
-					  }
-				}
-				)	
-				console.log('Deleting Channel From AMS',camera._id)
+				const apiRes = await AWSCAM.deleteChannel(camera)
 
-				//Delte from AMS		
+				//Delete from AMS		
+				console.log('Deleting Channel From AMS',camera._id)
 				const amsRes = await axios.delete(`${process.env.MEDIA_SERVER_URL}/WebRTCAppEE/rest/v2/broadcasts/${camera.antStreamId}`)
 
 				console.log('Deleting Channel From DB',camera._id)
 				const deletedCamera = await Camera.deleteOne({ _id: id });
 				if (!deletedCamera) {
 					console.log('No DB Camera Found to delete')
-					return res.status(400).json({ success: false });
+					return res.status(422).json({ success: false });
 				}
-				res.status(200).json({ success: true, data: {} });
+				return res.status(200).json({ success: true, data: {} });
 			} catch (error) {
-				console.log(error)
+				console.log('Delete Camera Error',error)
 				res.status(400).json({ success: false });
 			}
 			break;

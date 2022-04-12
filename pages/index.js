@@ -2,8 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import LoginForm from '../components/forms/LoginForm'
 import styles from '../styles/Home.module.css'
+import { useAuthContext } from '../contexts/AuthContext';
 
 export default function Home() {
+  // const  auth  = useAuthContext() // AuthContext object.
+
   return (
     <div >
       <Head>

@@ -120,7 +120,7 @@ export default function CamAnt(props) {
                     //     console.log(obj);
                     // }
                 } else if (info == "ice_connection_state_changed") {
-                    // console.log("iceConnectionState Changed: ", JSON.stringify(obj));
+                    console.log("iceConnectionState Changed: ", JSON.stringify(obj));
                 } else if (info == "updated_stats") {
                     //obj is the PeerStats which has fields
                     //averageIncomingBitrate - kbits/sec
@@ -128,11 +128,11 @@ export default function CamAnt(props) {
                     //packetsLost - total number of packet lost
                     //fractionLost - fraction of packet lost
 
-                    // console.log("Average incoming kbits/sec: " + obj.averageIncomingBitrate
-                    //     + " Current incoming kbits/sec: " + obj.currentIncomingBitrate
-                    //     + " packetLost: " + obj.packetsLost
-                    //     + " fractionLost: " + obj.fractionLost
-                    //     + " audio level: " + obj.audioLevel);
+                    console.log("Average incoming kbits/sec: " + obj.averageIncomingBitrate
+                        + " Current incoming kbits/sec: " + obj.currentIncomingBitrate
+                        + " packetLost: " + obj.packetsLost
+                        + " fractionLost: " + obj.fractionLost
+                        + " audio level: " + obj.audioLevel);
 
                 } else if (info == "data_received") {
                     console.log("Data received: " + obj.event.data + " type: " + obj.event.type + " for stream: " + obj.streamId);

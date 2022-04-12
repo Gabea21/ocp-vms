@@ -1,6 +1,7 @@
 import axios from 'axios';
 import dbConnect from '../../../mongo/dbConnect';
 import Camera from '../../../mongo/models/camera';
+import AWSCAM from '../../../lib/aws/index';
 
 export default async function handler(req, res) {
 	const { method } = req;
@@ -54,7 +55,7 @@ export default async function handler(req, res) {
 			break;
 		case 'POST': //  /api/auth/signup for registration
 			try {
-				console.log(req.body, client_id)
+				console.log(req.body)
                 const cameraFound = await Camera.findOne({
 					ip: req.body.deviceIp,
 					port: req.body.devicePort,
@@ -63,24 +64,27 @@ export default async function handler(req, res) {
                 }); /* find camera with ip address in DB  */
                  if(cameraFound){
 					 console.log('Camera Found')
-                    return res.status(300).json({ success: true, camera: cameraFound });
+                    return res.status(422).json({ success: true, camera: cameraFound });
                  }else {
-					
-					const apiRes =  await  instance.post('/channels', { //Create AWSVXG Channel
-						client_id: client_id,
-						passthrough: req.body.passthrough === true ? 'true' : 'false', // Edge Ai Bypass
-						name: req.body.deviceName,
-						timezone: 'America/New_York',
-						rec_mode: req.body.recording === 'on' ? 'on' : 'off', // VXG Record Mode
-						meta: {},
-						source: {
-							url: `rtsp://${req.body.deviceIp}:${req.body.devicePort}/${req.body.deviceStreamPath.length > 0 ? req.body.deviceStreamPath :''}`, 
-							username: req.body.deviceUsername,
-							password: req.body.devicePassword
+					const camData = { //Create AWSVXG Channel
+							client_id: client_id,
+							passthrough: req.body.passthrough === true ? 'true' : 'false', // Edge Ai Bypass
+							name: req.body.deviceName,
+							timezone: 'America/New_York',
+							rec_mode: req.body.recording === 'on' ? 'on' : 'off', // VXG Record Mode
+							meta: {},
+							source: {
+								url: `rtsp://${req.body.deviceIp}:${req.body.devicePort}/${req.body.deviceStreamPath.length > 0 ? req.body.deviceStreamPath :''}`, 
+								username: req.body.deviceUsername,
+								password: req.body.devicePassword
+							}
 						}
-						
-					})
+					const apiRes = await AWSCAM.createChannel( camData )
 					console.log('Camera Created AWS ', apiRes.data)
+
+					// const SERVER_ID = '463'
+					// const getServerRes = await VXG.getServer(SERVER_ID)
+					// console.log(getServerRes.data.api_endpoint)
 					
 					const amsRes = await axios.post(`${process.env.MEDIA_SERVER_URL}/WebRTCAppEE/rest/v2/broadcasts/create?autoStart=true`,{
 						streamId: apiRes.data.channel_id,
@@ -135,7 +139,7 @@ export default async function handler(req, res) {
 				}
 			} catch (error) {
 				console.log(error);
-				res.status(400).json({ success: false });
+				res.status(400).json({ success: false, message:'Camera POST Err' });
 			}
 			break;
 		case 'DELETE': //  /api/auth/signup for registration

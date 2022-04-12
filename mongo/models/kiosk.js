@@ -8,8 +8,10 @@ const kiosk = new Schema({
     camera_id: { type: String },
     webrelay_id: { type: String },
     name: {type: String},
-    location: {type: Object},
+    location: {type: String},
     deviceType: {type: String, default:'Ipad'}, 
+    callRequested:{type: Boolean, default: false},
+    callAccepted:{type: Boolean, default: false},
   },
   {
     timestamps: true,

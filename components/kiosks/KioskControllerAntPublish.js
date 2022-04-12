@@ -52,19 +52,25 @@ export default function KioskControllerAntPublish(props) {
     setIsShow(true)    
     }, [])
 
-    // useEffect(() => {
-    //     if(isShow){
-    //         onStartPublishing()
-    //     }
-    // }, [isShow])
+    useEffect(() => {
+        if(isShow){
+            setTimeout(()=>{
+                onStartPublishing()
+                setVideoOn(true)
+                setOnCall(true)
+            },1500)
+        }
+    }, [isShow])
+    
    
  // Close Peer Connection Cleanup Function
  useEffect(() => {
     // Dismount
    return () => {
-       if(webRTCAdaptor !== null){
-           console.log('ran stop')
+       if(webRTCAdaptor){
            webRTCAdaptor.stop(streamName)
+           console.log('ran stop kiosk-control publish')
+
        }
     }
 }, [webRTCAdaptor])
@@ -182,29 +188,33 @@ export default function KioskControllerAntPublish(props) {
     return (
         <div>
              <Draggable >
-           <div className="max-w-[800px] max-h-[500px]">
-                <video width="100%" height="auto" id={`localVideo${kiosk_id}`} autoPlay muted  playsInline/>
-            </div>
+                    <div className="max-w-[800px] max-h-[480px]">
+                        <video width="100%" height="auto" id={`localVideo${kiosk_id}`} autoPlay muted  playsInline/>
+                    </div>
             </Draggable>
-            <div className="backdrop-blur-sm mt-3 flex flex-row" >
+            <div className="mt-3 flex flex-row justify-end text-lg " >
                {!mutedMic ? (
-                <BiMicrophone size={24} className="bg-gray-100 bg-opacity-20 p-1 rounded-full cursor-pointer" onClick={handleLocalMic} />
+                <BiMicrophone size={28} className="backdrop-blur-sm  bg-gray-100 bg-opacity-20 p-1 rounded-full cursor-pointer" onClick={handleLocalMic} />
                ):(
-                <BiMicrophoneOff size={24} className="bg-rose-300 bg-opacity-80 p-1 rounded-full cursor-pointer" onClick={handleLocalMic}/>
+                <BiMicrophoneOff size={28} className="backdrop-blur-sm  bg-rose-300 bg-opacity-80 p-1 rounded-full cursor-pointer" onClick={handleLocalMic}/>
                )}
 
                 {videoOn ? (
-                 <FiVideo size={24} className="bg-gray-100 bg-opacity-20 p-1 rounded-full ml-4 cursor-pointer" onClick={ handleLocalVideo} />
+                 <FiVideo size={28} className="backdrop-blur-sm  bg-gray-100 bg-opacity-20 p-1 rounded-full ml-4 cursor-pointer" onClick={ handleLocalVideo} />
                 ):(
-                <FiVideoOff size={24} className="bg-rose-300 bg-opacity-80 p-1 rounded-full ml-4 cursor-pointer" onClick={ handleLocalVideo} />
+                <FiVideoOff size={28} className="backdrop-blur-sm  bg-gray-300 bg-opacity-80 p-1 rounded-full ml-4 cursor-pointer" onClick={ handleLocalVideo} />
                 )}
 
 
-                {onCall ? (
-                 <BiPhone size={24} className="bg-green-400 bg-opacity-80 p-1 rounded-full ml-4 cursor-pointer" onClick={  handleOnCall} />
+                {/* {!onCall ? (
+                    <BiPhone size={24} className="bg-green-400 bg-opacity-80 p-1 rounded-full ml-4 cursor-pointer" onClick={  handleOnCall} />
                 ):(
-                <BiPhoneOff size={24} className="bg-gray-100 bg-opacity-50 p-1 rounded-full ml-4 cursor-pointer" onClick={  handleOnCall} />
-                )}
+                    <>
+                    <BiPhoneOff size={24} className="bg-rose-300 bg-opacity-50 p-1 rounded-full ml-4 cursor-pointer" onClick={  handleEndCall } />
+                    <span className="ml-3 font-extrabold"> End Call</span>
+                    </>
+
+                )} */}
 
             </div>
               
