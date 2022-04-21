@@ -72,10 +72,10 @@ export default function LoginForm() {
           </div>
           <div className="flex flex-row justify-center ">
          
-            <button onClick={() => signIn("google")}  className="inline-flex items-center px-4 py-2 border border-transparent shadow-xl text-base font-medium rounded-md text-gray-600 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            {/* <button onClick={() => signIn("google")}  className="inline-flex items-center px-4 py-2 border border-transparent shadow-xl text-base font-medium rounded-md text-gray-600 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
               <FcGoogle size={24}  className="mr-2" />
               Sign In With Google
-              </button>
+              </button> */}
           </div>
           <form className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
