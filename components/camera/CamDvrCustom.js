@@ -372,7 +372,6 @@ export default function CamDvrCustom(props) {
                 {!showExpireOptions && <div >
                     <ReactPlayer  width="100%" height="100%" 
                         ref={ (video) => videoRef.current = video}
-                        controls={true} 
                         playing={loadedLiveUrls ? true : false}  
                         // url={selectedDay === null ? watch.hls+'.m3u8' : vidSrcArr} 
                         url={vidSrcArr[currentUrlIndex]?.src} 

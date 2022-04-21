@@ -3,7 +3,7 @@ import CamAntPublish from "../../components/camera/players/CamAntPublish";
 import CamSinglePlayer from "../../components/camera/players/CamSinglePlayer";
 
 export default function conference(props) {
-   
+   const { camera }  = props;
    
 
     return (

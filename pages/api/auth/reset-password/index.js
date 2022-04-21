@@ -7,7 +7,7 @@ import mailgunFactory from 'mailgun-js';
 const mg_apiKey = process.env.MAILGUN_API_KEY;
 const mg_domain = process.env.MAILGUN_DOMAIN;
 
-const mailgun = mailgunFactory({
+const mailgun = new mailgunFactory({
 	apiKey: mg_apiKey,
 	domain: mg_domain
 });

@@ -23,7 +23,8 @@ import {
 } from '@heroicons/react/outline'
 import { SearchIcon, CogIcon } from '@heroicons/react/solid'
 import {  MdDevicesOther, MdGarage, MdTabletMac } from "react-icons/md"
-import {GrMapLocation} from "react-icons/gr"
+import {GrMapLocation} from "react-icons/gr";
+import { BiLogOut,BiSupport } from "react-icons/bi";
 import Image from 'next/image';
 import AppNavTop from '../AppNavTop';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -186,6 +187,24 @@ export default function AdminLayout({ children, ...props }) {
                   </>
                 }
                   </nav>
+                  <div className="mt-8  flex flex-col items-center justify-center">
+                  <button
+                      type="button"
+                      onClick={() => signOut()}
+                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-lg text-base font-medium rounded-md text-white bg-gray-400 hover:bg-opacity-70"
+                    >
+                      <BiLogOut size={28} className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+                      Sign Out
+                    </button>
+                    <a
+                      href="mailto:support@gomidl.com?subject=VMS Support"
+                      type="button"
+                      className="mt-4 inline-flex items-center px-4 py-2 border border-transparent  text-base font-medium rounded-md text-white bg-blue-400 hover:bg-opacity-70 shadow-lg "
+                    >
+                      <BiSupport size={28} className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+                      Support
+                    </a>
+                  </div>
                   
                 </div>
               </div>
@@ -260,6 +279,24 @@ export default function AdminLayout({ children, ...props }) {
                   </>
                 }
               </nav>
+              <div className="my-6  flex flex-col items-center justify-center">
+                  <button
+                      type="button"
+                      onClick={() => signOut()}
+                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-lg text-base font-medium rounded-md text-white bg-gray-400 hover:bg-opacity-70"
+                    >
+                      <BiLogOut size={28} className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+                      Sign Out
+                    </button>
+                    <a
+                      href="mailto:support@gomidl.com?subject=VMS Support"
+                      type="button"
+                      className="mt-4 inline-flex items-center px-4 py-2 border border-transparent  text-base font-medium rounded-md text-white bg-blue-400 hover:bg-opacity-70 shadow-lg "
+                    >
+                      <BiSupport size={28} className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+                      Support
+                    </a>
+                  </div>
             </div>
           </div>
         </div>
