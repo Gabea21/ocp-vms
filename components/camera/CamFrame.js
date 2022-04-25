@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect, useState, useRef } from "react";
-import $ from "jquery";
 import axios from "axios";
 import FullPageLoader from "../FullPageLoader";
 
