@@ -34,7 +34,7 @@ export default function dashboard(props) {
         <div className="min-h-[100vh] bg-gray-50 rounded">
             
            <div className="flex flex-col lg:flex-row lg:justify-evenly py-4"> 
-                <div className="relative rounded-lg  px-4 flex flex-col items-center justify-center max-w-[700px]">
+                <div className="relative rounded-lg  px-4 flex flex-col items-center justify-center sm:max-w-[650px] lg:max-w-[750px]">
                   {/* <CamResponsivePlayer camera={ selectedCamera ?  selectedCamera : data.cameras[0]  }/>  */}
                   <CamLive  camera={ selectedCamera ?  selectedCamera : data.cameras[0]}/>
                     {/* <button className="bg-white bg-opacity-30 rounded-full top-2 left-4 px-1 absolute backdrop-blur-sm">Open Full</button> */}

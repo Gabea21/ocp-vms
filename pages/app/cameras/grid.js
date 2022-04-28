@@ -14,7 +14,7 @@ import CamAnt from "../../../components/camera/CamAnt";
 import useSWR from "swr";
 import GridToolbar from "../../../components/toolbars/GridToolbar";
 import { useEffect, useState } from "react";
-import CamGridPlayer from "../../../components/camera/players/grid/CamGridPlayer";
+import CamGridPlayer from "../../../components/camera/players/grid/CamGridPlayer"; // Legacy Grid Player not in grid folder
 import WallService from "../../../components/services/WallService";
 
 
@@ -110,7 +110,6 @@ export default function Grid(props) {
                     < LocationMarkerIcon className="text-white h-8 w-8" />
                   </span>
                 </div> */}
-                {/* <CamGridPlayer camera={camera} /> */}
                 <CamGridPlayer camera={camera} />
 
                 {/* <CamAnt streamId={camera.antStreamId} camera={camera} index={cameraIdx} height={'500px'} width={'600px'}/>   */}

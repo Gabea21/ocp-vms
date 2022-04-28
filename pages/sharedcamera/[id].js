@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import useSWR from "swr";
-import CamSharedPlayer from '../../components/camera/players/CamSharedPlayer'
+// import CamSharedPlayer from '../../components/camera/players/CamSharedPlayer'
+import CamSharedPlayer from '../../components/camera/players/shared/CamSharedPlayer'
+
 import ExpiredCamPage from '../../components/ExpiredCamPage';
 
 async function fetcherFunc(url){
@@ -19,7 +21,8 @@ export default function id(props) {
     console.log('Fetched Shared Cam 🎉 ')
     return (
         <div className="bg-black min-h-[100vh]">
-            <CamSharedPlayer camera={data.camera} />
+            {/* <CamSharedPlayer camera={data.camera} /> */}
+            <CamSharedPlayer  camera={data.camera} /> 
         </div>
     )
 }

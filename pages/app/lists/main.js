@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
 import CamAnt from "../../../components/camera/CamAnt";
+import CamLive from "../../../components/camera/players/live/CamLive";
 import WebRelayControlModal from "../../../components/modal/WebRelayControlModal";
 import CamLprPlateCard from "../../../components/section/CamLprPlateCard";
 import WebRelayService from "../../../components/services/WebRelayService";
@@ -42,9 +43,10 @@ export default function main(props) {
             <div className="bg-white shadow sm:rounded-lg lg:min-h-[800px]">
                 <div className="px-4 py-5 sm:px-6">
                    <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-evenly">
-                        <div className="bg-gray-200 rounded-2xl shadow-2xl px-3 py-3 max-w-[650px]">
-                           <div className="bg-black p-1 rounded-2xl ">
-                             <CamAnt streamId={camData.camera?.antStreamId} camera={camData.camera} />      
+                        <div className="bg-gray-200 rounded-2xl shadow-2xl px-3 py-3 sm:max-w-[650px] lg:max-w-[750px]">
+                           <div className="bg-black p-1 rounded-2xl w-full">
+                             {/* <CamAnt streamId={camData.camera?.antStreamId} camera={camData.camera} />       */}
+                             <CamLive camera={camData.camera} />
                            </div>
                         </div>
                         <div className="flex flex-col">

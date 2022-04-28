@@ -24,6 +24,8 @@ import AiEventTable from "../../../components/tables/AiEventTable";
 import CameraSingleToolbar from "../../../components/toolbars/CameraSingleToolbar";
 import CamSinglePlayer from "../../../components/camera/players/CamSinglePlayer";
 import CamDvrCustom from "../../../components/camera/CamDvrCustom";
+import CamLive from "../../../components/camera/players/live/CamLive";
+import CamAntToolbar from "../../../components/camera/CamAntToolbar";
 
 
 async function fetcherFunc(url){
@@ -72,13 +74,14 @@ export default function camSinglePage(props) {
 
                 <section className=" flex flex-row justify-center">
                   <div className="bg-gray-200 flex justify-center  rounded-2xl shadow-2xl px-3 py-3 w-full">
-                     {showLive ? 
+                     {!showLive ? 
                         <div className="bg-black p-1 rounded-2xl min-w-full max-h=[600px]">
                        {/* <CamSinglePlayer  camera={data.camera} /> */}
-                        <CamAnt streamId={data.camera.antStreamId} camera={data.camera} />
+                        {/* <CamAnt streamId={data.camera.antStreamId} camera={data.camera} /> */}
+                        <CamLive camera={data.camera}/>
                       </div> 
                       : (
-                          <div className="bg-black p-1 rounded-2xl min-w-full max-h=[600px]">
+                          <div className=" p-1 rounded-2xl min-w-full max-h=[600px]">
                             <CamDvrCustom camera={data.camera} />
                           </div> 
                       )}

@@ -24,13 +24,13 @@ export default function DvrIntervalCard(props) {
         <div  onClick={() => handleClickItem()}
         className={
         (((interval === currentInterval) && (intervalDate > earlyBound ) && (intervalDate < endBound)) )? (  // Handle Selected Interval
-                "cursor-pointer mx-1 my-2 px-2  bg-blue-800 text-white shadow-white shadow-sm rounded-lg  flex flex-col items-center"
+                "cursor-pointer mx-1 my-2 px-2  bg-blue-800 text-white shadow-white shadow-sm rounded-lg  flex flex-col items-center justify-center"
             ):(endBound < intervalDate) ?(
-                "cursor-not-allowed mx-1 my-2 px-2  bg-rose-800 text-white rounded-lg  flex flex-col items-center"
+                "cursor-not-allowed mx-1 my-2 px-2  bg-rose-800 text-white rounded-lg  flex flex-col items-center justify-center"
             ):( intervalDate < earlyBound ) ?(
-                "cursor-not-allowed mx-1 my-2 px-2  bg-rose-800  text-white rounded-lg  flex flex-col items-center"
+                "cursor-not-allowed mx-1 my-2 px-2  bg-rose-800  text-white rounded-lg  flex flex-col items-center justify-center"
             ):(
-                " mx-1 my-2 px-2 cursor-pointer bg-gray-200 shadow-lg rounded-lg flex flex-col items-center"
+                " mx-1 my-2 px-2 cursor-pointer bg-gray-200 shadow-lg rounded-lg flex flex-col items-center justify-center"
             )}>
             {/* <Link href={`#container-${interval}`} > */}
                 <div 
