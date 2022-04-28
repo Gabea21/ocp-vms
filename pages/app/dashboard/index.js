@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import WebRelayService from '../../../components/services/WebRelayService';
 import KioskControlCard from '../../../components/cards/KioskControlCard';
 import CamResponsivePlayer from '../../../components/camera/players/CamResponsivePlayer';
+import CamLive from '../../../components/camera/players/live/CamLive';
+
 import ManageCameraTable from '../../../components/tables/ManageCameraTable';
 import MainDashCameras from '../../../components/tables/MainDashCameras';
 import MainDashWebrelays from '../../../components/tables/MainDashWebrelays';
@@ -33,7 +35,8 @@ export default function dashboard(props) {
             
            <div className="flex flex-col lg:flex-row lg:justify-evenly py-4"> 
                 <div className="relative rounded-lg  px-4 flex flex-col items-center justify-center max-w-[700px]">
-                  <CamResponsivePlayer camera={ selectedCamera ?  selectedCamera : data.cameras[0]  }/> 
+                  {/* <CamResponsivePlayer camera={ selectedCamera ?  selectedCamera : data.cameras[0]  }/>  */}
+                  <CamLive  camera={ selectedCamera ?  selectedCamera : data.cameras[0]}/>
                     {/* <button className="bg-white bg-opacity-30 rounded-full top-2 left-4 px-1 absolute backdrop-blur-sm">Open Full</button> */}
                 </div>
                 <div className="hidden sm:flex sm:flex-col sm:items-center  ">

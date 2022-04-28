@@ -14,7 +14,7 @@ import CamAnt from "../../../components/camera/CamAnt";
 import useSWR from "swr";
 import GridToolbar from "../../../components/toolbars/GridToolbar";
 import { useEffect, useState } from "react";
-import CamGridPlayer from "../../../components/camera/players/CamGridPlayer";
+import CamGridPlayer from "../../../components/camera/players/grid/CamGridPlayer";
 import WallService from "../../../components/services/WallService";
 
 
@@ -111,7 +111,9 @@ export default function Grid(props) {
                   </span>
                 </div> */}
                 {/* <CamGridPlayer camera={camera} /> */}
-                <CamAnt streamId={camera.antStreamId} camera={camera} index={cameraIdx} height={'500px'} width={'600px'}/>  
+                <CamGridPlayer camera={camera} />
+
+                {/* <CamAnt streamId={camera.antStreamId} camera={camera} index={cameraIdx} height={'500px'} width={'600px'}/>   */}
               </div>
             ))}
         </div>

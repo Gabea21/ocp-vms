@@ -109,11 +109,11 @@ export default NextAuth({
 				if (token?.role) {
 					if (token.role == 0) {
 						session.user.role = 'admin';
-					} else if (token.role == 1) {
+					} else if (token.role === 1) {
 						session.user.role = 'manager';
-					} else if (token.role == 2) { // Default User Role
+					} else if (token.role === 2) { // Default User Role
 						session.user.role = 'staff';
-					} else if (token.role == 3) {
+					} else if (token.role === 3) {
 						session.user.role = 'tenant';
 					}
 				} else {

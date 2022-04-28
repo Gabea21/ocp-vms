@@ -6,7 +6,7 @@ import VXG from '../../../../lib/vxg/index';
 
 export default async function handler(req, res) {
 	const {
-		query: { id,  key, next,start, nextUrl },
+		query: { id,  key,token, next,start, nextUrl },
 		method
 	} = req;
 	
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
                     
                     const camera = await Camera.findOne({_id: id})
 					//Get VXG Watch Tokens
-					const vxgRes = await VXG.getCameraWatchURL(camera)
+					const vxgRes = await VXG.getCameraWatchURL(token) // change bck to 'camera' for legacy API 
                     console.log('Recieved Camera Watch Urls')					
 					return res.status(200).json({ success: true, camera: camera, watch: vxgRes.data, });
 

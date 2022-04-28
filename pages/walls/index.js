@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useSWR from "swr";
-import CamGridPlayer from "../../components/camera/players/CamGridPlayer";
+import CamGridPlayer from "../../components/camera/players/grid/CamGridPlayer";
 import {
     ViewGridAddIcon,
   } from '@heroicons/react/outline'
@@ -44,7 +44,7 @@ if (!data) return <div>loading...</div>
             )}
             </div>
 
-            <div className=" bg-opacity-10 backdrop-blur-sm bg-orange-100 p-2 rounded-full bottom-6 right-6 fixed ">
+            <div className=" bg-opacity-10 backdrop-blur-sm bg-orange-100 p-2 rounded-full bottom-6 right-6 fixed z-[10000]">
                 < ViewGridAddIcon onClick={() => handleGridClick()} className=" h-8 w-8 sm:h-12 sm:w-12 text-white"/>
             </div>
         </div>
