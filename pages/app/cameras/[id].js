@@ -77,8 +77,8 @@ export default function camSinglePage(props) {
                      {!showLive ? 
                         <div className="bg-black p-1 rounded-2xl min-w-full max-h=[600px]">
                        {/* <CamSinglePlayer  camera={data.camera} /> */}
-                        {/* <CamAnt streamId={data.camera.antStreamId} camera={data.camera} /> */}
-                        <CamLive camera={data.camera}/>
+                        <CamAnt streamId={data.camera.antStreamId} camera={data.camera} />
+                        {/* <CamLive camera={data.camera}/> */}
                       </div> 
                       : (
                           <div className=" p-1 rounded-2xl min-w-full max-h=[600px]">

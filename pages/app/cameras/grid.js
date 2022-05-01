@@ -110,9 +110,10 @@ export default function Grid(props) {
                     < LocationMarkerIcon className="text-white h-8 w-8" />
                   </span>
                 </div> */}
-                <CamGridPlayer camera={camera} />
 
-                {/* <CamAnt streamId={camera.antStreamId} camera={camera} index={cameraIdx} height={'500px'} width={'600px'}/>   */}
+                <CamAnt streamId={camera.antStreamId} camera={camera} index={cameraIdx} height={'500px'} width={'600px'}/>  
+                {/* <CamGridPlayer camera={camera} /> */}
+
               </div>
             ))}
         </div>
