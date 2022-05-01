@@ -86,7 +86,7 @@ export default async function handler(req, res) {
 					// const getServerRes = await VXG.getServer(SERVER_ID)
 					// console.log(getServerRes.data.api_endpoint)
 					
-					const amsRes = await axios.post(`${process.env.MEDIA_SERVER_URL}/WebRTCAppEE/rest/v2/broadcasts/create?autoStart=true`,{
+					const amsRes = await axios.post(`${process.env.MEDIA_SERVER_URL}/${process.env.NEXT_PUBLIC_MEDIA_SERVER_APP_NAME}/rest/v2/broadcasts/create?autoStart=true`,{
 						streamId: apiRes.data.channel_id,
 						streamUrl: `rtsp://${process.env.EDGE_SERVER_IP}:${process.env.EDGE_SERVER_PORT}/${req.body.passthrough === true ? '' : 'ds-'}${apiRes.data.channel_id}`, 
 						username: apiRes.data.source.url.username,

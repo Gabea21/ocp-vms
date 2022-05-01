@@ -128,7 +128,7 @@ export default async function handler(req, res) {
 
 				//Delete from AMS		
 				console.log('Deleting Channel From AMS',camera._id)
-				const amsRes = await axios.delete(`${process.env.MEDIA_SERVER_URL}/WebRTCAppEE/rest/v2/broadcasts/${camera.antStreamId}`)
+				const amsRes = await axios.delete(`${process.env.MEDIA_SERVER_URL}/${process.env.NEXT_PUBLIC_MEDIA_SERVER_APP_NAME}/rest/v2/broadcasts/${camera.antStreamId}`)
 
 				console.log('Deleting Channel From DB',camera._id)
 				const deletedCamera = await Camera.deleteOne({ _id: id });

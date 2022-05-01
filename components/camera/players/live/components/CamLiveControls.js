@@ -60,9 +60,9 @@ export default function CamLiveControls(props) {
         <div>
         <Menu as="div" className="relative inline-block text-left">
             <div>
-                <Menu.Button className="inline-flex justify-center w-full rounded-m shadow-sm   text-lg font-medium text-white">
+                {/* <Menu.Button className="inline-flex justify-center w-full rounded-m shadow-sm   text-lg font-medium text-white">
                     <FiShare size={22} />
-                </Menu.Button>
+                </Menu.Button> */}
             </div>
 
             <Transition

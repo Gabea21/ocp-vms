@@ -21,7 +21,7 @@ export default function CamWebRTC(props) {
             OfferToReceiveAudio: true,
             OfferToReceiveVideo: true
         },
-        websocketURL:`wss://${process.env.NEXT_PUBLIC_MEDIA_SERVER_DOMAIN}:${process.env.NEXT_PUBLIC_MEDIA_SERVER_SECURE_PORT}/WebRTCAppEE/websocket`,
+        websocketURL:`wss://${process.env.NEXT_PUBLIC_MEDIA_SERVER_DOMAIN}/${process.env.NEXT_PUBLIC_MEDIA_SERVER_APP_NAME}/websocket`,
         remoteVideoId: `remoteVideo${camera?._id}`,
         isShow:false,
         webRTCAdaptor:null,
