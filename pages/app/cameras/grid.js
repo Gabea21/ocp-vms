@@ -111,8 +111,8 @@ export default function Grid(props) {
                   </span>
                 </div> */}
 
-                <CamAnt streamId={camera.antStreamId} camera={camera} index={cameraIdx} height={'500px'} width={'600px'}/>  
-                {/* <CamGridPlayer camera={camera} /> */}
+                {/* <CamAnt streamId={camera.antStreamId} camera={camera} index={cameraIdx} height={'500px'} width={'600px'}/>   */}
+                <CamGridPlayer camera={camera} index={cameraIdx} />
 
               </div>
             ))}
