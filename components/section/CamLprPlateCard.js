@@ -12,7 +12,7 @@ export default function CamLprPlateCard(props) {
     const { data,error } = useSWR(url, fetcherFunc, {initialProps: props, revalidateOnMount: true, refreshInterval: 3000});
     if (error) return <div>failed to load</div>
     if (!data) return <div>loading...</div>
-    if(!data.plate) return (
+    if(!data?.plate) return (
         <div className="flex flex-col items-center">
             <div> 
                 <ImWarning className="h-12 w-32 text-yellow-500"/> 
