@@ -12,7 +12,7 @@ export default function CamLive(props) {
     const {index, camera, maxHeight} = props;
     const playerRef = useRef();
     const [isFullScreen, setIsFullScreen] = useState(false)
-    const [showHls, setShowHls] = useState(true);
+    const [showHls, setShowHls] = useState(false);
     const [allValues, setAllValues] = useState({   //Vod Player Config
         width: '100%',
         height: '100%',
@@ -77,7 +77,7 @@ export default function CamLive(props) {
             
             {showHls && <CamHLS allValues={allValues} /> }
 
-            {!allValues.controls && <div className={"absolute top-0 left-0 right-0 bottom-0  flex flex-col justify-between z-10"}>
+            {!allValues.controls && <div className={"absolute top-0 left-0 right-0 bottom-0  flex flex-col justify-between "}>
                 <CamLiveControls  
                 allValues={allValues} 
                 camera={camera}

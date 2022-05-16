@@ -312,8 +312,8 @@ export default function AdminLayout({ children, ...props }) {
             </button>
 
             {/*Horizontal Nav Section */}
-            <div className="flex-1 px-4 flex justify-between z-30">
-              <div className="flex-1 flex-row justify-evenly  w-full px-4 py-2 hidden sm:flex md:flex lg:flex">
+            <div className="flex-1 px-4 flex justify-between ">
+              <div className="flex-1 flex-row justify-evenly  w-full px-4 py-2 hidden sm:flex md:flex lg:flex z-[300]">
                   {mainNavigation.map((navItem, idx) => (
                     <Link href={navItem.href} passHref key={idx}>
                     <button
