@@ -12,7 +12,7 @@ export default function CamGridPlayer(props) {
     const { camera } = props;  //enable index to handle same streamID
     const playerRef = useRef();
     const [isFullScreen, setIsFullScreen] = useState(false)
-    const [showHls, setShowHls] = useState(false);
+    const [showHls, setShowHls] = useState(true);
     const [allValues, setAllValues] = useState({   //Vod Player Config
         width: '100%',
         height: '100%',

@@ -26,6 +26,7 @@ import CamSinglePlayer from "../../../components/camera/players/CamSinglePlayer"
 import CamDvrCustom from "../../../components/camera/CamDvrCustom";
 import CamLive from "../../../components/camera/players/live/CamLive";
 import CamAntToolbar from "../../../components/camera/CamAntToolbar";
+import VxgPlayer from "../../../components/camera/players/VxgPlayer";
 
 
 async function fetcherFunc(url){
@@ -82,7 +83,9 @@ export default function camSinglePage(props) {
                       </div> 
                       : (
                           <div className=" p-1 rounded-2xl min-w-full max-h=[600px]">
-                            <CamDvrCustom camera={data.camera} />
+                            {/* <CamDvrCustom camera={data.camera} /> */}
+                            <VxgPlayer camera={data.camera} />
+
                           </div> 
                       )}
                   </div>

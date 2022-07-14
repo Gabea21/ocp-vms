@@ -1,7 +1,6 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import CamLiveControls from './components/CamLiveControls';
 import CamWebRTC from './components/CamWebRTC';
 import CamHLS from './components/CamHLS';
 import getCameraWatchUrl from '../../../hooks/camera/getCameraWatchUrl';
@@ -25,15 +24,14 @@ export default function CamLive(props) {
       });
  
 
-   
-    const { data: camWatchUrls, error: camWatchUrlsError} = getCameraWatchUrl(camera.vxg?.allToken);
+    const { data: camWatchUrls, error: camWatchUrlsError} = getCameraWatchUrl(camera.vxg.allToken);
     useEffect(() => { // Load HLS URL
-      if(showHls){
+      if(showHls && camWatchUrls){
             setAllValues( prevValues => {
                 return { ...prevValues,url: camWatchUrls?.watch?.hls}
             })
         }
-    }, [showHls, camWatchUrls])
+    }, [showHls,camWatchUrls])
 
     
     const handlePlayPause = () => { // Play Pause Toggle
@@ -46,51 +44,34 @@ export default function CamLive(props) {
           return { ...prevValues, muted: !allValues.muted}
         })
       }
-    
-     
-      
-      function IsFullScreen() {
-        return !!(document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement)
-      }
-      const handleClickFullscreen = () => {
-        if(IsFullScreen() === false){
-          findDOMNode(playerRef.current).requestFullscreen().catch(
-            (err) => 
-            {alert("Could not activate full-screen mode ")}
-          )
-          setIsFullScreen(true)
-        }else{
-          // console.log(IsFullScreen())
-          document?.exitFullscreen()
-          setIsFullScreen(false)
-        }
-      }
-       
-    return (
+
+  return (
         <div
         ref={playerRef}
           // onMouseEnter={handleToggleControls}
           //  onMouseLeave={handleToggleControls}
-            className={isFullScreen ? 'w-full relative bg-black' : 'w-full relative  sm:px-12 lg:px-16 xl:px-20 bg-black'}>
+          className={
+            'w-full relative bg-black min-h-[211px] aspect-[16/9]	'
+           }>
 
-          {!showHls &&  <CamWebRTC camera={camera} isFullScreen={isFullScreen} />  }    
+          {!showHls && 
+           <CamWebRTC 
+            camera={camera} 
+            showHls={showHls} 
+            setShowHls={setShowHls} 
+             />  }    
             
-            {showHls && <CamHLS allValues={allValues} /> }
+            {showHls && 
+             <CamHLS
+             allValues={allValues}
+             setAllValues={setAllValues}
+             showHls={showHls}
+             setShowHls={setShowHls}
+             isFullScreen={isFullScreen}
+             setIsFullScreen={setIsFullScreen}
+          /> }
 
-            {!allValues.controls && <div className={"absolute top-0 left-0 right-0 bottom-0  flex flex-col justify-between "}>
-                <CamLiveControls  
-                allValues={allValues} 
-                camera={camera}
-                handleClickFullscreen={handleClickFullscreen}
-                handlePlayPause={handlePlayPause}
-                handleToggleMuted={handleToggleMuted}
-                setShowHls={setShowHls}
-                showHls={showHls}
-            
-                />
-            </div>
-            }
-                  
+           
         </div>
     )
 }
