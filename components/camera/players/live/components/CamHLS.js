@@ -84,7 +84,7 @@ setAllValues( prevValues => {
       className={
         isFullScreen
           ? "absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] transform w-full h-full"
-          : "relative  w-full "
+          : "relative min-h-[211px]  w-full "
       }
     >
       {/* {!isReady && (
