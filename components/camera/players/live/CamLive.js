@@ -11,7 +11,7 @@ export default function CamLive(props) {
     const {index, camera, maxHeight} = props;
     const playerRef = useRef();
     const [isFullScreen, setIsFullScreen] = useState(false)
-    const [showHls, setShowHls] = useState(true);
+    const [showHls, setShowHls] = useState(false);
     const [allValues, setAllValues] = useState({   //Vod Player Config
         width: '100%',
         height: '100%',
